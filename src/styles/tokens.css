@@ -1,0 +1,136 @@
+/* ============================================================
+   Design tokens — Linear-inspired
+   Source: portfolio redesign brief, phase 1
+   Imported once at app entry (src/app/layout.tsx)
+   ============================================================ */
+
+:root {
+  /* Backgrounds */
+  --bg-primary: #08090a;
+  --bg-secondary: #0f1011;
+  --bg-tertiary: #1c1d1f;
+  --bg-quaternary: #232326;
+  --bg-translucent: rgba(255, 255, 255, 0.04);
+  --bg-translucent-strong: rgba(255, 255, 255, 0.08);
+
+  /* Text */
+  --text-primary: #f7f8f8;
+  --text-secondary: #b4bcd0;
+  --text-tertiary: #8a8f98;
+  --text-quaternary: #62666d;
+
+  /* Borders — always low alpha */
+  --border-primary: rgba(255, 255, 255, 0.08);
+  --border-secondary: rgba(255, 255, 255, 0.12);
+  --border-tertiary: rgba(255, 255, 255, 0.18);
+
+  /* Brand accent — use SPARINGLY */
+  --accent: #5e6ad2;
+  --accent-hover: #6e79d6;
+  --accent-bg: rgba(94, 106, 210, 0.14);
+  --accent-border: rgba(94, 106, 210, 0.32);
+
+  /* Status colors */
+  --color-success: #4cb782;
+  --color-warning: #f2c94c;
+  --color-danger: #eb5757;
+
+  /* Typography */
+  --font-sans: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Berkeley Mono", "JetBrains Mono", "SF Mono", Menlo, monospace;
+
+  --text-micro: 11px;
+  --text-mini: 12px;
+  --text-small: 13px;
+  --text-regular: 15px;
+  --text-large: 17px;
+  --text-h3: 21px;
+  --text-h2: 28px;
+  --text-h1: 40px;
+  --text-h0: 56px;
+
+  --tracking-tight: -0.025em;
+  --tracking-snug: -0.0125em;
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.08em;
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  /* Spacing — 4px base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* Radius — Linear keeps these subtle */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 999px;
+
+  /* Shadows — used rarely */
+  --shadow-low: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-glow-purple: 0 0 80px rgba(94, 106, 210, 0.3);
+
+  /* Motion — Linear's signature easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+
+  /* Layout */
+  --container-max: 1024px;
+  --container-narrow: 720px;
+  --header-height: 64px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-regular);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--accent-bg);
+  color: var(--text-primary);
+}
+
+/* Respect reduced motion globally — skills: performance-ux */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
