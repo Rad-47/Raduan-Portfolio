@@ -1,0 +1,118 @@
+.card {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 22px;
+  background: var(--bg-secondary);
+  border: 0.5px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+.card:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-secondary);
+}
+
+.card:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--bg-primary),
+    0 0 0 4px var(--accent);
+}
+
+/* ─── 64px gradient avatar ─── */
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--card-grad-a), var(--card-grad-b));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: var(--tracking-tight);
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+/* ─── body ─── */
+.body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-regular);
+  font-weight: 500;
+  letter-spacing: var(--tracking-snug);
+  color: var(--text-primary);
+}
+
+.rolePill {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-micro);
+  font-weight: 500;
+  letter-spacing: var(--tracking-snug);
+  background: color-mix(in srgb, var(--card-accent) 14%, transparent);
+  color: var(--card-accent);
+}
+
+.description {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: var(--leading-normal);
+  color: var(--text-secondary);
+}
+
+/* ─── arrow (slides 4px right on hover) ─── */
+.arrow {
+  font-size: var(--text-large);
+  color: var(--text-quaternary);
+  transition: transform var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+  align-self: center;
+}
+
+.card:hover .arrow {
+  transform: translateX(4px);
+  color: var(--text-secondary);
+}
+
+@media (max-width: 540px) {
+  .card {
+    grid-template-columns: 48px 1fr;
+    gap: var(--space-3);
+    padding: var(--space-4);
+  }
+  .avatar {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+  }
+  .arrow {
+    display: none;
+  }
+}

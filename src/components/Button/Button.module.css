@@ -1,0 +1,89 @@
+/* Button — per brief spec */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-md);
+  border: 0.5px solid transparent;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: var(--tracking-snug);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--bg-primary),
+    0 0 0 4px var(--accent);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ─── sizes ─── */
+.sm {
+  height: 28px;
+  padding: 0 var(--space-3);
+  font-size: var(--text-mini);
+}
+.md {
+  height: 32px;
+  padding: 0 var(--space-4);
+  font-size: var(--text-small);
+}
+.lg {
+  height: 36px;
+  padding: 0 var(--space-5);
+  font-size: var(--text-small);
+}
+
+/* ─── variants ─── */
+.primary {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+.primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-secondary);
+}
+.secondary:hover {
+  background: var(--bg-translucent);
+  border-color: var(--border-tertiary);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+}
+.ghost:hover {
+  background: var(--bg-translucent);
+  color: var(--text-primary);
+}
