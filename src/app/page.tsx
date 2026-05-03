@@ -1,10 +1,11 @@
 /**
- * Homepage — full content with Apple.ca polish.
- * Hero · Projects · Experience · Skills · Education · Contact
+ * Homepage — full content with Apple.ca polish + animated background.
+ * Hero · Marquee · Projects · Marquee · Experience · Skills · Education · Contact
  */
 import { Nav } from "@/components/Nav/Nav";
 import { Footer } from "@/components/Footer/Footer";
 import { Hero } from "@/sections/Hero/Hero";
+import { MarqueeDivider } from "@/sections/MarqueeDivider/MarqueeDivider";
 import { Projects } from "@/sections/Projects/Projects";
 import { Experience } from "@/sections/Experience/Experience";
 import { Skills } from "@/sections/Skills/Skills";
@@ -17,6 +18,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <MarqueeDivider />
         <Projects />
         <Experience />
         <Skills />

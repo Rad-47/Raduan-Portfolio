@@ -1,32 +1,69 @@
+"use client";
+
 /**
- * Hero — Apple.ca-grade opener.
- * Status pill · location → giant display name → role tags →
- * tagline → CTAs → 4-stat bar with animated counters.
+ * Hero — Apple.ca-grade opener with parallax + aurora text.
+ * Status pill · location → giant display name (aurora gradient last name)
+ * → role tags → tagline → CTAs → 4-stat bar with animated counters.
  */
+import { useScroll, useTransform, motion, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
 import { Container } from "@/components/Container/Container";
 import { StatusPill } from "@/components/StatusPill/StatusPill";
 import { Button } from "@/components/Button/Button";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { CountUp } from "@/components/CountUp/CountUp";
+import { AuroraText } from "@/components/AuroraText/AuroraText";
 import { heroStats } from "@/data/education";
 import styles from "./Hero.module.css";
 
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const prefersReduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  // Parallax: orbs drift up faster than content as we scroll past hero
+  const orbY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.4]);
+
   return (
-    <section className={styles.hero} aria-labelledby="hero-title">
-      <div className={styles.glow} aria-hidden="true" />
-      <div className={styles.glowSecondary} aria-hidden="true" />
+    <section
+      ref={ref}
+      className={styles.hero}
+      aria-labelledby="hero-title"
+    >
+      {/* Floating accent orbs (parallax) */}
+      <motion.div
+        className={styles.orb1}
+        style={prefersReduced ? undefined : { y: orbY }}
+        aria-hidden="true"
+      />
+      <motion.div
+        className={styles.orb2}
+        style={prefersReduced ? undefined : { y: orbY }}
+        aria-hidden="true"
+      />
 
       <Container>
-        <div className={styles.inner}>
+        <motion.div
+          className={styles.inner}
+          style={prefersReduced ? undefined : { y: contentY, opacity: contentOpacity }}
+        >
           <Reveal>
-            <StatusPill status="success">Toronto, ON · Available for BA / AI PO roles</StatusPill>
+            <StatusPill status="success">
+              Toronto, ON · Available for BA / AI PO roles
+            </StatusPill>
           </Reveal>
 
           <Reveal delay={0.05}>
             <h1 id="hero-title" className={`${styles.title} display`}>
               <span className={styles.name}>Raduan</span>
-              <span className={styles.surname}>Rahman</span>
+              <span className={styles.surname}>
+                <AuroraText speedSeconds={9}>Rahman</AuroraText>
+              </span>
             </h1>
           </Reveal>
 
@@ -77,7 +114,7 @@ export function Hero() {
               ))}
             </ul>
           </Reveal>
-        </div>
+        </motion.div>
       </Container>
     </section>
   );

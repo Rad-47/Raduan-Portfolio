@@ -1,0 +1,28 @@
+.card {
+  position: relative;
+  isolation: isolate;
+}
+
+.spot {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    var(--spot-size) circle at var(--mx, 50%) var(--my, 50%),
+    var(--spot-color),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-apple);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card:hover .spot {
+  opacity: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}

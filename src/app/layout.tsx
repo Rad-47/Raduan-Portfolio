@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/inter/wght-italic.css";
 import "@/styles/tokens.css";
+import { AnimatedBackground } from "@/components/AnimatedBackground/AnimatedBackground";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://raduan-portfolio.vercel.app"),
@@ -21,7 +22,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AnimatedBackground />
+        {children}
+      </body>
     </html>
   );
 }

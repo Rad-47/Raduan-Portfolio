@@ -1,0 +1,35 @@
+.section {
+  padding: var(--space-8) 0;
+  border-top: 0.5px solid var(--border-primary);
+  border-bottom: 0.5px solid var(--border-primary);
+  background: rgba(255, 255, 255, 0.015);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding-right: var(--space-5);
+}
+
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  transition: color var(--duration-base) var(--ease-apple);
+}
+
+.section:hover .label {
+  color: var(--text-secondary);
+}
+
+.dot {
+  color: var(--accent);
+  font-size: var(--text-large);
+  opacity: 0.6;
+}

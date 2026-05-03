@@ -53,8 +53,14 @@
   gap: var(--space-10);
 }
 
-/* ─── Each project as a rich card ─── */
+/* ─── Card wrapper (gets the spotlight) ─── */
 .card {
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+}
+
+/* ─── Each project as a rich card ─── */
+.cardInner {
   position: relative;
   padding: var(--space-8);
   border: 0.5px solid var(--border-primary);
@@ -65,10 +71,10 @@
     background-color var(--duration-base) var(--ease-apple);
 }
 @media (min-width: 768px) {
-  .card { padding: var(--space-10); }
+  .cardInner { padding: var(--space-10); }
 }
 
-.card::before {
+.cardInner::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -90,9 +96,9 @@
   transition: opacity var(--duration-slow) var(--ease-apple);
   pointer-events: none;
 }
-.card:hover::before { opacity: 0.4; }
+.card:hover .cardInner::before { opacity: 0.6; }
 
-.card:hover {
+.card:hover .cardInner {
   background: var(--bg-tertiary);
   border-color: var(--border-secondary);
 }

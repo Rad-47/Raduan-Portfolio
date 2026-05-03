@@ -1,0 +1,47 @@
+.wrap {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 12%,
+    #000 88%,
+    transparent 100%
+  );
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation-name: scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.track.reverse {
+  animation-direction: reverse;
+}
+.wrap:hover .track {
+  animation-play-state: paused;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; }
+}

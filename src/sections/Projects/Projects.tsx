@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Container } from "@/components/Container/Container";
 import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal/Reveal";
 import { Lightbox, LightboxImage } from "@/components/Lightbox/Lightbox";
+import { SpotlightCard } from "@/components/SpotlightCard/SpotlightCard";
 import { projects, Project, Screenshot } from "@/data/projects";
 import styles from "./Projects.module.css";
 
@@ -76,8 +77,13 @@ function ProjectRow({ project, onOpenLightbox }: ProjectRowProps) {
     project.screenshots?.map((s: Screenshot) => ({ src: s.src, alt: s.alt })) ?? [];
 
   return (
-    <article
+    <SpotlightCard
       className={styles.card}
+      color={`color-mix(in srgb, ${project.gradient[0]} 22%, transparent)`}
+      size={420}
+    >
+    <article
+      className={styles.cardInner}
       style={
         {
           "--card-grad-a": project.gradient[0],
@@ -151,5 +157,6 @@ function ProjectRow({ project, onOpenLightbox }: ProjectRowProps) {
         </div>
       )}
     </article>
+    </SpotlightCard>
   );
 }
