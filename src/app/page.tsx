@@ -1,12 +1,14 @@
 /**
- * Homepage — Phase 3 build.
- * Sections in order: Nav · Hero · Selected Work · About · Contact · Footer
+ * Homepage — full content with Apple.ca polish.
+ * Hero · Projects · Experience · Skills · Education · Contact
  */
 import { Nav } from "@/components/Nav/Nav";
 import { Footer } from "@/components/Footer/Footer";
 import { Hero } from "@/sections/Hero/Hero";
-import { SelectedWork } from "@/sections/SelectedWork/SelectedWork";
-import { About } from "@/sections/About/About";
+import { Projects } from "@/sections/Projects/Projects";
+import { Experience } from "@/sections/Experience/Experience";
+import { Skills } from "@/sections/Skills/Skills";
+import { Education } from "@/sections/Education/Education";
 import { Contact } from "@/sections/Contact/Contact";
 
 export default function Home() {
@@ -15,8 +17,10 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <SelectedWork />
-        <About />
+        <Projects />
+        <Experience />
+        <Skills />
+        <Education />
         <Contact />
       </main>
       <Footer />

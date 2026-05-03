@@ -15,8 +15,8 @@ import styles from "./Nav.module.css";
 
 const links = [
   { href: "/#work", label: "Work" },
-  { href: "/#about", label: "About" },
-  { href: "/#writing", label: "Writing" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#skills", label: "Skills" },
   { href: "/#contact", label: "Contact" },
 ];
 

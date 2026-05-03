@@ -1,11 +1,12 @@
 /* ============================================================
-   Design tokens — Linear-inspired
-   Source: portfolio redesign brief, phase 1
+   Design tokens — Apple.ca quality
+   Inter Variable + SF-style features, fluid display sizes,
+   pill buttons, generous spacing, multi-layer depth.
    Imported once at app entry (src/app/layout.tsx)
    ============================================================ */
 
 :root {
-  /* Backgrounds */
+  /* ─── Backgrounds ─── */
   --bg-primary: #08090a;
   --bg-secondary: #0f1011;
   --bg-tertiary: #1c1d1f;
@@ -13,54 +14,70 @@
   --bg-translucent: rgba(255, 255, 255, 0.04);
   --bg-translucent-strong: rgba(255, 255, 255, 0.08);
 
-  /* Text */
-  --text-primary: #f7f8f8;
+  /* ─── Text ─── */
+  --text-primary: #f5f5f7;        /* Apple's signature near-white */
   --text-secondary: #b4bcd0;
-  --text-tertiary: #8a8f98;
+  --text-tertiary: #86868b;       /* Apple's signature mid-gray */
   --text-quaternary: #62666d;
 
-  /* Borders — always low alpha */
+  /* ─── Borders — always low alpha ─── */
   --border-primary: rgba(255, 255, 255, 0.08);
   --border-secondary: rgba(255, 255, 255, 0.12);
   --border-tertiary: rgba(255, 255, 255, 0.18);
 
-  /* Brand accent — use SPARINGLY */
+  /* ─── Brand accent — used SPARINGLY (logo + primary button + hero glow) ─── */
   --accent: #5e6ad2;
   --accent-hover: #6e79d6;
   --accent-bg: rgba(94, 106, 210, 0.14);
   --accent-border: rgba(94, 106, 210, 0.32);
 
-  /* Status colors */
+  /* ─── Status colors ─── */
   --color-success: #4cb782;
   --color-warning: #f2c94c;
   --color-danger: #eb5757;
 
-  /* Typography */
+  /* ─── Typography ─── */
   --font-sans: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, sans-serif;
+    "SF Pro Display", "Segoe UI", Roboto, sans-serif;
   --font-mono: "Berkeley Mono", "JetBrains Mono", "SF Mono", Menlo, monospace;
 
+  /* Body sizes */
   --text-micro: 11px;
   --text-mini: 12px;
   --text-small: 13px;
   --text-regular: 15px;
   --text-large: 17px;
-  --text-h3: 21px;
-  --text-h2: 28px;
-  --text-h1: 40px;
-  --text-h0: 56px;
+  --text-xl: 19px;
+  --text-2xl: 22px;
 
+  /* Display sizes — fluid using clamp() for Apple.ca-grade responsiveness */
+  --text-h3: clamp(20px, 1.2vw + 16px, 24px);
+  --text-h2: clamp(28px, 2.2vw + 16px, 40px);
+  --text-h1: clamp(40px, 4vw + 16px, 64px);
+  --text-h0: clamp(48px, 6vw + 24px, 96px);
+  --text-display: clamp(64px, 8vw + 32px, 128px); /* Hero name */
+
+  /* Tracking — Apple uses very tight tracking on display text */
+  --tracking-display: -0.045em;
   --tracking-tight: -0.025em;
-  --tracking-snug: -0.0125em;
+  --tracking-snug: -0.015em;
+  --tracking-normal: 0;
   --tracking-wide: 0.04em;
   --tracking-wider: 0.08em;
+  --tracking-widest: 0.16em;
 
-  --leading-tight: 1.05;
-  --leading-snug: 1.2;
+  --leading-tight: 1.04;
+  --leading-snug: 1.15;
   --leading-normal: 1.5;
   --leading-relaxed: 1.65;
 
-  /* Spacing — 4px base */
+  /* ─── Weights ─── */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ─── Spacing — 4px base ─── */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -74,33 +91,36 @@
   --space-20: 80px;
   --space-24: 96px;
   --space-32: 128px;
+  --space-40: 160px;
 
-  /* Radius — Linear keeps these subtle */
+  /* ─── Radius — Apple uses pill buttons + soft rounded media ─── */
   --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
   --radius-full: 999px;
 
-  /* Shadows — used rarely */
+  /* ─── Shadows ─── */
   --shadow-low: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-large: 0 24px 48px -8px rgba(0, 0, 0, 0.6);
   --shadow-glow-purple: 0 0 80px rgba(94, 106, 210, 0.3);
 
-  /* Motion — refined easing
-     --ease-out: Linear's signature
-     --ease-apple: Apple's classic out-cubic, used on primary CTAs */
+  /* ─── Motion — Apple's signature easing curves ─── */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-apple: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-apple: cubic-bezier(0.32, 0.72, 0, 1);   /* macOS Big Sur+ */
+  --ease-spring: cubic-bezier(0.5, 1.25, 0.75, 1.25);
   --duration-fast: 150ms;
   --duration-base: 250ms;
   --duration-slow: 400ms;
 
-  /* Layout */
-  --container-max: 1024px;
+  /* ─── Layout ─── */
+  --container-max: 1120px;
   --container-narrow: 720px;
-  --header-height: 64px;
+  --container-wide: 1320px;
+  --header-height: 56px;
 }
 
 *,
@@ -120,7 +140,7 @@ body {
   line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Apple-grade type rendering */
+  /* Apple-grade type rendering — Inter alts that approximate SF Pro */
   text-rendering: optimizeLegibility;
   font-feature-settings: "cv11", "ss01", "ss03", "cv02";
   font-variation-settings: "opsz" 32;
@@ -133,7 +153,9 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 ::selection {
@@ -141,7 +163,13 @@ html {
   color: var(--text-primary);
 }
 
-/* Respect reduced motion globally — skills: performance-ux */
+/* ─── Display text helper — Apple's optical scaling for huge type ─── */
+.display {
+  font-variation-settings: "opsz" 96;
+  letter-spacing: var(--tracking-display);
+}
+
+/* Respect reduced motion globally */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

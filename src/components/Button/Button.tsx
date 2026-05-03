@@ -9,8 +9,8 @@ import Link from "next/link";
 import clsx from "clsx";
 import styles from "./Button.module.css";
 
-type Variant = "primary" | "secondary" | "ghost";
-type Size = "sm" | "md" | "lg";
+type Variant = "primary" | "secondary" | "ghost" | "link";
+type Size = "sm" | "md" | "lg" | "xl";
 
 type BaseProps = {
   variant?: Variant;
