@@ -1,0 +1,42 @@
+.section {
+  padding: var(--space-16) 0;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: var(--space-20) 0;
+  }
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 0.5px solid var(--border-primary);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-mini);
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.year {
+  font-family: var(--font-mono);
+  font-size: var(--text-mini);
+  color: var(--text-quaternary);
+  letter-spacing: var(--tracking-snug);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}

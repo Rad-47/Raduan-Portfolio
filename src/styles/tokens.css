@@ -87,9 +87,12 @@
   --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.5);
   --shadow-glow-purple: 0 0 80px rgba(94, 106, 210, 0.3);
 
-  /* Motion — Linear's signature easing */
+  /* Motion — refined easing
+     --ease-out: Linear's signature
+     --ease-apple: Apple's classic out-cubic, used on primary CTAs */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-apple: cubic-bezier(0.32, 0.72, 0, 1);
   --duration-fast: 150ms;
   --duration-base: 250ms;
   --duration-slow: 400ms;
@@ -117,6 +120,20 @@ body {
   line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Apple-grade type rendering */
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv11", "ss01", "ss03", "cv02";
+  font-variation-settings: "opsz" 32;
+  font-optical-sizing: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 ::selection {
