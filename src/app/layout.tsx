@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/inter/wght-italic.css";
 import "@/styles/tokens.css";
-import { AnimatedBackground } from "@/components/AnimatedBackground/AnimatedBackground";
+import { ScrollProgress } from "@/components/ScrollProgress/ScrollProgress";
+import { BackToTop } from "@/components/BackToTop/BackToTop";
+import { Cursor } from "@/components/Cursor/Cursor";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://raduan-portfolio.vercel.app"),
@@ -23,8 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AnimatedBackground />
+        <ScrollProgress />
         {children}
+        <BackToTop />
+        <Cursor />
       </body>
     </html>
   );

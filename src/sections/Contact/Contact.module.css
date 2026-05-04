@@ -33,6 +33,48 @@
   text-align: center;
 }
 
+.avatar {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 1px solid var(--border-secondary);
+  box-shadow:
+    var(--shadow-medium),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  background: var(--bg-secondary);
+}
+
+.avatar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 35%,
+    transparent 65%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  pointer-events: none;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .avatar {
+    width: 144px;
+    height: 144px;
+  }
+}
+
 .title {
   margin: 0;
   font-size: var(--text-h0);

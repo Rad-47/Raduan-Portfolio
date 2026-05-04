@@ -1,6 +1,22 @@
 .card {
   position: relative;
   isolation: isolate;
+  /* 3D tilt: applied via CSS vars set in JS (--rx, --ry, --hover) */
+  transform-style: preserve-3d;
+  transform:
+    perspective(1100px)
+    rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg))
+    translateZ(calc(var(--hover, 0) * 6px));
+  transition: box-shadow var(--duration-base) var(--ease-apple);
+  will-change: transform;
+}
+
+.card:hover {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04),
+    0 12px 36px -12px rgba(0, 0, 0, 0.6),
+    0 32px 80px -24px color-mix(in srgb, var(--spot-color) 60%, transparent);
 }
 
 .spot {
@@ -25,4 +41,16 @@
 .content {
   position: relative;
   z-index: 1;
+  /* Inner content drifts forward slightly relative to the tilting card,
+     creating a layered parallax that reads as depth. */
+  transform: translateZ(calc(var(--hover, 0) * 2px));
+}
+
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .card {
+    transform: none;
+  }
+  .content {
+    transform: none;
+  }
 }

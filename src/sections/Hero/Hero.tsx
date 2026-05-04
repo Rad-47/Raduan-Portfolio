@@ -6,15 +6,22 @@
  * → role tags → tagline → CTAs → 4-stat bar with animated counters.
  */
 import { useScroll, useTransform, motion, useReducedMotion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { useRef } from "react";
 import { Container } from "@/components/Container/Container";
 import { StatusPill } from "@/components/StatusPill/StatusPill";
 import { Button } from "@/components/Button/Button";
+import { Magnetic } from "@/components/Magnetic/Magnetic";
 import { Reveal } from "@/components/Reveal/Reveal";
 import { CountUp } from "@/components/CountUp/CountUp";
 import { AuroraText } from "@/components/AuroraText/AuroraText";
 import { heroStats } from "@/data/education";
 import styles from "./Hero.module.css";
+
+const HeroCanvas = dynamic(
+  () => import("@/components/HeroCanvas/HeroCanvas").then((m) => m.HeroCanvas),
+  { ssr: false }
+);
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -24,8 +31,7 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Parallax: orbs drift up faster than content as we scroll past hero
-  const orbY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  // Parallax: hero content drifts down + fades as we scroll past
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 60]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.4]);
 
@@ -35,17 +41,7 @@ export function Hero() {
       className={styles.hero}
       aria-labelledby="hero-title"
     >
-      {/* Floating accent orbs (parallax) */}
-      <motion.div
-        className={styles.orb1}
-        style={prefersReduced ? undefined : { y: orbY }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className={styles.orb2}
-        style={prefersReduced ? undefined : { y: orbY }}
-        aria-hidden="true"
-      />
+      <HeroCanvas />
 
       <Container>
         <motion.div
@@ -86,19 +82,25 @@ export function Hero() {
 
           <Reveal delay={0.2}>
             <div className={styles.cta}>
-              <Button variant="primary" size="lg" href="mailto:raduanridu2669@gmail.com">
-                Get in touch ↗
-              </Button>
-              <Button
-                variant="secondary"
-                size="lg"
-                href="https://www.linkedin.com/in/raduan-rahman-redu/"
-              >
-                LinkedIn
-              </Button>
-              <Button variant="secondary" size="lg" href="https://github.com/Rad-47">
-                GitHub
-              </Button>
+              <Magnetic strength={14}>
+                <Button variant="primary" size="lg" href="mailto:raduanridu2669@gmail.com">
+                  Get in touch ↗
+                </Button>
+              </Magnetic>
+              <Magnetic strength={10}>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  href="https://www.linkedin.com/in/raduan-rahman-redu/"
+                >
+                  LinkedIn
+                </Button>
+              </Magnetic>
+              <Magnetic strength={10}>
+                <Button variant="secondary" size="lg" href="https://github.com/Rad-47">
+                  GitHub
+                </Button>
+              </Magnetic>
             </div>
           </Reveal>
 

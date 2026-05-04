@@ -67,12 +67,17 @@ type ExperienceCardProps = {
 };
 
 function ExperienceCard({ exp, index, onOpen }: ExperienceCardProps) {
-  const isFanLinc = index === 0; // Blayz is the first card
+  // Resolve the screenshot strip for this card: prefer the entry's own
+  // screenshots; for the first card (Blayz) fall back to the FanLinc set
+  // so existing data isn't disturbed.
+  const isFanLincFallback = index === 0 && !exp.screenshots;
+  const screenshots = exp.screenshots ?? (isFanLincFallback ? fanLincScreens : null);
+  const aspect = exp.screenshotsAspect ?? (isFanLincFallback ? "mobile" : "wide");
+  const label =
+    exp.screenshotsLabel ?? (isFanLincFallback ? "Live App — FanLinc" : null);
 
-  const lbImages: LightboxImage[] = fanLincScreens.map((s) => ({
-    src: s.src,
-    alt: s.alt,
-  }));
+  const lbImages: LightboxImage[] =
+    screenshots?.map((s) => ({ src: s.src, alt: s.alt })) ?? [];
 
   return (
     <article className={styles.card}>
@@ -90,24 +95,32 @@ function ExperienceCard({ exp, index, onOpen }: ExperienceCardProps) {
         ))}
       </ul>
 
-      {isFanLinc && (
+      {screenshots && screenshots.length > 0 && (
         <div className={styles.gallery}>
-          <div className={styles.galleryLabel}>Live App — FanLinc</div>
-          <div className={styles.mobileThumbs}>
-            {fanLincScreens.map((s, i) => (
+          {label && <div className={styles.galleryLabel}>{label}</div>}
+          <div
+            className={
+              aspect === "wide" ? styles.wideThumbs : styles.mobileThumbs
+            }
+          >
+            {screenshots.map((s, i) => (
               <button
                 key={s.src}
                 type="button"
-                className={styles.mobileThumb}
+                className={
+                  aspect === "wide" ? styles.wideThumb : styles.mobileThumb
+                }
                 onClick={() => onOpen(lbImages, i)}
                 aria-label={`Open ${s.alt} in lightbox`}
               >
                 <Image
                   src={s.src}
                   alt={s.alt}
-                  width={200}
-                  height={420}
-                  className={styles.mobileImg}
+                  width={aspect === "wide" ? 480 : 200}
+                  height={aspect === "wide" ? 280 : 420}
+                  className={
+                    aspect === "wide" ? styles.wideImg : styles.mobileImg
+                  }
                 />
               </button>
             ))}

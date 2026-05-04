@@ -222,9 +222,63 @@
   display: block;
 }
 
+/* ─── Wide (landscape) screenshot strip — for web-app screens & diagrams ─── */
+.wideThumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+}
+
+.wideThumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 0.5px solid var(--border-secondary);
+  background: var(--bg-tertiary);
+  cursor: zoom-in;
+  padding: 0;
+  transition:
+    transform var(--duration-base) var(--ease-apple),
+    border-color var(--duration-base) var(--ease-apple),
+    box-shadow var(--duration-base) var(--ease-apple);
+}
+.wideThumb::after {
+  /* Subtle inner highlight + bottom shadow gradient — Apple-style media tile */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.wideThumb:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 14px 32px rgba(94, 106, 210, 0.22);
+}
+.wideThumb:active {
+  transform: translateY(-1px) scale(0.99);
+}
+.wideThumb:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg-primary), 0 0 0 4px var(--accent);
+}
+.wideImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
 @media (max-width: 600px) {
   .timeline::before { left: 14px; }
   .card { margin-left: 36px; padding: var(--space-5); }
   .node { left: -28px; top: 22px; width: 12px; height: 12px; }
   .mobileThumb { width: 90px; height: 188px; }
+  .wideThumbs {
+    grid-template-columns: 1fr;
+  }
 }

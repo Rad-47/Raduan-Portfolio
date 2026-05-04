@@ -133,7 +133,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: var(--text-regular);
@@ -150,6 +149,10 @@ body {
 
 html {
   scroll-behavior: smooth;
+  /* Solid baseline so the AnimatedBackground at z=0 has something to paint on
+     while keeping body itself bg-free (body bg would cover fixed z:0 layers
+     in some browsers). */
+  background-color: var(--bg-primary);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -161,6 +164,33 @@ html {
 ::selection {
   background: var(--accent-bg);
   color: var(--text-primary);
+}
+
+/* Custom cursor — when active, hide the system pointer site-wide.
+   Toggled by Cursor.tsx, which adds .cursor-active to the html element. */
+.cursor-active,
+.cursor-active * {
+  cursor: none !important;
+}
+.cursor-active input,
+.cursor-active textarea {
+  cursor: text !important;
+}
+
+/* ─── Page-wide ambient gradient ─────────────────────────────────────────
+   Layered radial gradients painted directly on the html element. Stretches
+   the full document height so quiet color seeps through Projects /
+   Experience / Skills / Education / Contact, behind the hero's WebGL canvas.
+
+   Each radial covers roughly one section: hero-zone violet, projects rose,
+   experience cyan, contact purple — gives gentle scroll-driven color
+   variation without an animated layer. */
+html {
+  background-image:
+    radial-gradient(ellipse 95% 35% at 20% 8%, rgba(94, 106, 210, 0.30), transparent 62%),
+    radial-gradient(ellipse 85% 30% at 80% 32%, rgba(244, 63, 94, 0.18), transparent 62%),
+    radial-gradient(ellipse 90% 32% at 22% 60%, rgba(56, 189, 248, 0.15), transparent 62%),
+    radial-gradient(ellipse 85% 35% at 78% 88%, rgba(139, 92, 246, 0.22), transparent 62%);
 }
 
 /* ─── Display text helper — Apple's optical scaling for huge type ─── */

@@ -1,0 +1,55 @@
+/* The body-wide cursor:none rule lives in tokens.css under .cursor-active
+   so it can target globally without triggering CSS Modules' pure-selector rule. */
+
+.ring,
+.dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 200ms var(--ease-apple);
+  will-change: transform, width, height, background;
+  mix-blend-mode: difference;
+}
+
+.ring {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  transition:
+    opacity 200ms var(--ease-apple),
+    width 220ms var(--ease-apple),
+    height 220ms var(--ease-apple),
+    background-color 220ms var(--ease-apple),
+    border-color 220ms var(--ease-apple);
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  transition: opacity 150ms var(--ease-apple);
+}
+
+.visible {
+  opacity: 1;
+}
+
+/* Over interactive elements: ring expands and fills with soft white,
+   dot dims (the ring is the focus). */
+.ring.hover {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.ring.down {
+  width: 22px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.18);
+}

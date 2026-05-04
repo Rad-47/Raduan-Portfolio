@@ -1,6 +1,7 @@
 /**
  * Contact CTA — single line + email + LinkedIn + GitHub.
  */
+import Image from "next/image";
 import { Container } from "@/components/Container/Container";
 import { StatusPill } from "@/components/StatusPill/StatusPill";
 import { Button } from "@/components/Button/Button";
@@ -17,6 +18,19 @@ export function Contact() {
       <Container>
         <div className={styles.center}>
           <Reveal>
+            <div className={styles.avatar}>
+              <Image
+                src="/avatar.png"
+                alt="Raduan Rahman"
+                width={288}
+                height={288}
+                className={styles.avatarImg}
+                priority={false}
+              />
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.03}>
             <StatusPill status="success">Open to opportunities</StatusPill>
           </Reveal>
 
