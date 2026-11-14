@@ -1,0 +1,160 @@
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 10 / 9;
+  perspective: 1800px;
+  perspective-origin: 50% 40%;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.layer {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+/* Independent idle drift so the stack feels alive, never mechanical. */
+.drift {
+  animation: drift ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, -6px, 0) rotate(-0.4deg);
+  }
+  to {
+    transform: translate3d(0, 8px, 0) rotate(0.4deg);
+  }
+}
+
+/* ─── Browser window ─── */
+.browser {
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-secondary);
+  box-shadow:
+    0 1px 2px oklch(0.2 0.01 60 / 0.06),
+    0 30px 60px -28px oklch(0.2 0.01 60 / 0.45),
+    0 60px 120px -60px oklch(0.2 0.01 60 / 0.3);
+}
+
+.chrome {
+  display: flex;
+  gap: 6px;
+  padding: 9px 12px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.chrome span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-secondary);
+}
+
+.screen {
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+/* ─── Phone ─── */
+.phone {
+  padding: 6px;
+  border-radius: 28px;
+  background: var(--ink);
+  box-shadow:
+    0 2px 4px oklch(0.2 0.01 60 / 0.2),
+    0 40px 70px -30px oklch(0.2 0.01 60 / 0.6);
+}
+
+.phoneScreen {
+  position: relative;
+  aspect-ratio: 922 / 2000;
+  overflow: hidden;
+  border-radius: 22px;
+}
+
+.img {
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* ─── Note card ─── */
+.note {
+  padding: var(--space-4) var(--space-5);
+  border-radius: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-secondary);
+  box-shadow: 0 24px 48px -24px oklch(0.2 0.01 60 / 0.4);
+}
+
+.noteLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-mini);
+  color: var(--text-tertiary);
+}
+
+.noteDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.noteText {
+  margin: var(--space-2) 0 0;
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 0.6vw + 12px, 22px);
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.noteText em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* Soft contact shadow grounding the composition on the paper. */
+.floor {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -4%;
+  height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, oklch(0.2 0.01 60 / 0.16), transparent);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drift {
+    animation: none;
+  }
+}
+
+/* Phones: keep the note card compact so it doesn't dominate the stack. */
+@media (max-width: 640px) {
+  .note {
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+
+  .noteLabel {
+    font-size: 10px;
+  }
+
+  .noteText {
+    margin-top: 4px;
+    font-size: 13px;
+  }
+}

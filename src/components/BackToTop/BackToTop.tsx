@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * BackToTop — floating circular button that fades in after the hero,
+ * BackToTop - floating circular button that fades in after the hero,
  * scrolls to top on click. Respects prefers-reduced-motion.
  */
 import { useEffect, useState } from "react";

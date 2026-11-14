@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Lightbox — minimal full-screen image viewer.
+ * Lightbox - minimal full-screen image viewer.
  * Keyboard: Esc closes, ←/→ navigate.
  * Click backdrop closes. Body scroll locked while open.
  */

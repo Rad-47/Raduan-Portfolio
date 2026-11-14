@@ -1,5 +1,5 @@
 /**
- * Marquee — horizontal infinite scroller.
+ * Marquee - horizontal infinite scroller.
  * Duplicates children for seamless loop. Pauses on hover.
  * Edges fade to background via mask.
  */

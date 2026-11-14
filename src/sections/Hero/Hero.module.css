@@ -1,176 +1,241 @@
 .hero {
   position: relative;
-  padding: var(--space-32) 0 var(--space-20);
-  overflow: hidden;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  isolation: isolate;
+  padding: var(--header-height) 12px 0;
 }
 
-@media (min-width: 768px) {
-  .hero {
-    padding: var(--space-40) 0 var(--space-32);
+/* Rounded full-screen film stage, inset from the viewport edges. */
+.stage {
+  position: relative;
+  min-height: calc(100svh - var(--header-height) - 12px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(20px, 3vw, 52px);
+  border-radius: clamp(20px, 2.4vw, 36px);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--ink);
+  transform-origin: 50% 0;
+  color: var(--on-ink);
+}
+
+/* ─── Bottom band: statement left, intro + CTAs right ─── */
+.bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: end;
+}
+
+@media (min-width: 1100px) {
+  .bottom {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: var(--space-12);
   }
 }
 
-.inner {
-  position: relative;
-  z-index: 2;
+.headBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-6);
+  font-size: var(--text-small);
+  color: var(--on-ink-muted);
+}
+
+.metaRule {
+  width: 32px;
+  height: 1px;
+  background: oklch(1 0 0 / 0.35);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(46px, 5.8vw, 112px);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  color: var(--on-ink);
+  text-shadow: 0 2px 30px oklch(0.1 0.01 60 / 0.35);
+}
+
+.line {
+  display: block;
+}
+
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+  margin-right: 0.22em;
+}
+
+.mask:last-child {
+  margin-right: 0;
+}
+
+.word,
+.accentWord {
+  display: inline-block;
+  will-change: transform;
+}
+
+.accentWord {
+  font-style: italic;
+  color: var(--accent-soft);
+}
+
+.aside {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  align-items: flex-start;
+  max-width: 440px;
+  padding-bottom: var(--space-2);
 }
 
-/* ─── Display name — Apple.ca scale ─── */
-.title {
-  margin: 0;
-  font-size: var(--text-display);
-  font-weight: 600;
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-display);
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.name {
-  color: var(--text-primary);
-}
-
-.surname {
-  color: transparent;
-  -webkit-text-stroke: 1px var(--text-tertiary);
-  background: linear-gradient(135deg, var(--text-secondary) 0%, var(--text-tertiary) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* ─── Role tags ─── */
-.roles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-}
-
-.roleTag {
-  display: inline-flex;
-  align-items: center;
-  height: 30px;
-  padding: 0 var(--space-4);
-  border-radius: var(--radius-full);
-  font-family: var(--font-mono);
-  font-size: var(--text-mini);
-  letter-spacing: var(--tracking-snug);
-  border: 0.5px solid var(--border-secondary);
-  background: var(--bg-translucent);
-  color: var(--text-secondary);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  transition: background-color var(--duration-fast) var(--ease-apple),
-    border-color var(--duration-fast) var(--ease-apple),
-    color var(--duration-fast) var(--ease-apple);
-}
-.roleTag:hover {
-  background: var(--bg-translucent-strong);
-  border-color: var(--border-tertiary);
-  color: var(--text-primary);
-}
-
-/* ─── Lead ─── */
 .lead {
-  margin: var(--space-2) 0 0;
-  max-width: 620px;
-  font-size: var(--text-large);
-  line-height: var(--leading-relaxed);
-  color: var(--text-secondary);
-  letter-spacing: var(--tracking-snug);
+  margin: 0;
+  font-size: clamp(16px, 0.35vw + 14px, 19px);
+  line-height: 1.5;
+  color: var(--on-ink-muted);
+  text-wrap: pretty;
 }
 
-/* ─── CTA row ─── */
+.lead em {
+  font-family: var(--font-serif);
+  font-size: 1.15em;
+  font-style: italic;
+  color: var(--on-ink);
+}
+
 .cta {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-3);
+  align-items: center;
+  gap: var(--space-5);
 }
 
-/* ─── Stats bar ─── */
-.stats {
-  list-style: none;
-  margin: var(--space-12) 0 0;
-  padding: 0;
+/* Cream pill with an inner circular ink arrow. */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 6px 6px 6px 22px;
+  font-size: var(--text-regular);
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--on-ink);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: gap var(--duration-base) var(--ease-out);
+}
+
+.pillIcon {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--border-primary);
-  border: 0.5px solid var(--border-primary);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  width: 100%;
-  max-width: 880px;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--on-ink);
+  background: var(--ink);
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.pill:hover {
+  gap: var(--space-4);
+}
+
+.pill:hover .pillIcon {
+  transform: rotate(-45deg) scale(1.06);
+}
+
+.mail {
+  font-size: var(--text-regular);
+  color: var(--on-ink);
+  text-decoration: underline;
+  text-decoration-color: oklch(1 0 0 / 0.35);
+  text-underline-offset: 6px;
+  transition: text-decoration-color var(--duration-base) var(--ease-out);
+}
+
+.mail:hover {
+  text-decoration-color: var(--on-ink);
+}
+
+.pill:focus-visible,
+.mail:focus-visible {
+  outline: 2px solid var(--on-ink);
+  outline-offset: 4px;
+}
+
+/* ─── Stats strip on the paper, just below the film ─── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 calc(var(--gutter) - 12px);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+@media (min-width: 760px) {
+  .stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 .stat {
-  background: var(--bg-secondary);
-  padding: var(--space-6);
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: var(--space-2);
-  position: relative;
-  overflow: hidden;
-  transition: background-color var(--duration-base) var(--ease-apple);
+  padding: var(--space-8) var(--space-5) var(--space-8) 0;
 }
-.stat:hover {
-  background: var(--bg-tertiary);
-}
-.stat::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), transparent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--duration-slow) var(--ease-apple);
-}
-.stat:hover::after {
-  transform: scaleX(1);
+
+@media (min-width: 760px) {
+  .stat + .stat {
+    padding-left: var(--space-6);
+    border-left: 1px solid var(--border-primary);
+  }
 }
 
 .statValue {
-  font-size: var(--text-h1);
-  font-weight: 600;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 2.4vw + 24px, 64px);
   line-height: 1;
-  letter-spacing: var(--tracking-tight);
-  color: var(--text-primary);
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
+  color: var(--text-primary);
 }
 
 .statLabel {
-  font-family: var(--font-mono);
-  font-size: var(--text-micro);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
+  font-size: var(--text-small);
   color: var(--text-tertiary);
 }
 
-@media (max-width: 760px) {
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .statValue {
-    font-size: var(--text-h2);
+@media (max-width: 767px) {
+  .stage {
+    min-height: calc(100svh - var(--header-height) - 12px);
   }
 }
-@media (max-width: 540px) {
-  .lead {
-    font-size: var(--text-regular);
+
+@media (max-width: 767px) {
+  .stage {
+    min-height: 0;
+    justify-content: flex-start;
+    padding-top: calc(50svh - 30px);
+  }
+
+  .title {
+    font-size: clamp(40px, 11vw, 56px);
   }
 }

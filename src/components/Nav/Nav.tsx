@@ -1,21 +1,21 @@
 "use client";
 
 /**
- * Nav — sticky top, blurred-translucent on scroll.
- * IntersectionObserver scroll-spy highlights the active section
- * with an animated underline indicator (framer-motion layoutId).
+ * Nav - reference-style top bar.
+ * Logo monogram + email on the left, nav links on the right.
+ * Each link has a doubled-text slide-up hover effect (label appears twice;
+ * one slides up, the duplicate rises into view).
  */
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import clsx from "clsx";
 import styles from "./Nav.module.css";
 
 const links = [
+  { id: "profile", href: "/#profile", label: "Profile", isSecondary: true },
+  { id: "experience", href: "/#experience", label: "Experience", isSecondary: true },
   { id: "work", href: "/#work", label: "Work" },
-  { id: "experience", href: "/#experience", label: "Experience" },
-  { id: "skills", href: "/#skills", label: "Skills" },
+  { id: "skills", href: "/#skills", label: "Skills", isSecondary: true },
   { id: "contact", href: "/#contact", label: "Contact" },
 ];
 
@@ -31,8 +31,9 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
-    const sections = links
-      .map((l) => document.getElementById(l.id))
+    const sectionIds = ["profile", "experience", "work", "skills", "contact"];
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
     if (sections.length === 0) return;
 
@@ -53,19 +54,17 @@ export function Nav() {
   return (
     <header className={clsx(styles.nav, scrolled && styles.scrolled)}>
       <div className={styles.inner}>
-        <Link href="/" className={styles.logo} aria-label="Raduan Rahman — home">
-          <span className={styles.logoMark} aria-hidden="true">
-            <Image
-              src="/avatar.png"
-              alt=""
-              width={72}
-              height={72}
-              className={styles.logoMarkImg}
-              priority
-            />
-          </span>
-          <span className={styles.logoText}>Raduan Rahman</span>
-        </Link>
+        <div className={styles.left}>
+          <Link href="/" className={styles.logo} aria-label="Raduan Rahman - home">
+            <span className={styles.logoMark}>RR</span>
+          </Link>
+          <a
+            href="mailto:raduanridu2669@gmail.com"
+            className={styles.email}
+          >
+            raduanridu2669@gmail.com
+          </a>
+        </div>
 
         <nav className={styles.links} aria-label="Primary">
           {links.map((link) => {
@@ -74,18 +73,19 @@ export function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={clsx(styles.link, isActive && styles.linkActive)}
+                className={clsx(
+                  styles.link,
+                  isActive && styles.linkActive,
+                  link.isSecondary && styles.secondary
+                )}
                 aria-current={isActive ? "true" : undefined}
               >
-                <span className={styles.linkLabel}>{link.label}</span>
-                {isActive && (
-                  <motion.span
-                    layoutId="nav-active-indicator"
-                    className={styles.activeIndicator}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    aria-hidden="true"
-                  />
-                )}
+                <span className={styles.linkInner}>
+                  <span className={styles.linkText}>{link.label}</span>
+                  <span className={styles.linkTextDup} aria-hidden="true">
+                    {link.label}
+                  </span>
+                </span>
               </Link>
             );
           })}

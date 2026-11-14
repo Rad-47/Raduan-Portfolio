@@ -1,45 +1,68 @@
 /* ============================================================
-   Design tokens — Apple.ca quality
-   Inter Variable + SF-style features, fluid display sizes,
-   pill buttons, generous spacing, multi-layer depth.
+   Design tokens — light editorial
+   Warm paper · ink · serif display · one deep-green accent.
+   Restraint is the point: no gradients-as-decoration, no glow.
    Imported once at app entry (src/app/layout.tsx)
    ============================================================ */
 
 :root {
-  /* ─── Backgrounds ─── */
-  --bg-primary: #08090a;
-  --bg-secondary: #0f1011;
-  --bg-tertiary: #1c1d1f;
-  --bg-quaternary: #232326;
-  --bg-translucent: rgba(255, 255, 255, 0.04);
-  --bg-translucent-strong: rgba(255, 255, 255, 0.08);
+  color-scheme: light;
 
-  /* ─── Text ─── */
-  --text-primary: #f5f5f7;        /* Apple's signature near-white */
-  --text-secondary: #b4bcd0;
-  --text-tertiary: #86868b;       /* Apple's signature mid-gray */
-  --text-quaternary: #62666d;
+  /* ─── Paper ─── */
+  --bg-primary: oklch(0.968 0.008 85);
+  --bg-secondary: oklch(0.945 0.01 85);
+  --bg-tertiary: oklch(0.92 0.012 85);
+  --bg-quaternary: oklch(0.89 0.012 85);
+  --bg-translucent: oklch(0.2 0.01 60 / 0.035);
+  --bg-translucent-strong: oklch(0.2 0.01 60 / 0.07);
 
-  /* ─── Borders — always low alpha ─── */
-  --border-primary: rgba(255, 255, 255, 0.08);
-  --border-secondary: rgba(255, 255, 255, 0.12);
-  --border-tertiary: rgba(255, 255, 255, 0.18);
+  /* Cards: near-white sheets that sit on the paper. */
+  --surface: oklch(0.99 0.004 85);
+  --surface-highlight: 0 1px 2px oklch(0.2 0.01 60 / 0.05);
+  --surface-shadow: 0 1px 2px oklch(0.2 0.01 60 / 0.05),
+    0 24px 48px -28px oklch(0.2 0.01 60 / 0.22);
+  --surface-hover-shadow: 0 2px 4px oklch(0.2 0.01 60 / 0.06),
+    0 40px 70px -36px oklch(0.2 0.01 60 / 0.32);
 
-  /* ─── Brand accent — used SPARINGLY (logo + primary button + hero glow) ─── */
-  --accent: #5e6ad2;
-  --accent-hover: #6e79d6;
-  --accent-bg: rgba(94, 106, 210, 0.14);
-  --accent-border: rgba(94, 106, 210, 0.32);
+  /* ─── Ink ─── */
+  --text-primary: oklch(0.2 0.012 60);
+  --text-secondary: oklch(0.38 0.012 60);
+  --text-tertiary: oklch(0.52 0.01 60);
+  --text-quaternary: oklch(0.64 0.01 60);
+
+  /* Inverted (dark ink panels) */
+  --ink: oklch(0.19 0.012 60);
+  --ink-2: oklch(0.24 0.012 60);
+  --on-ink: oklch(0.96 0.008 85);
+  --on-ink-muted: oklch(0.96 0.008 85 / 0.66);
+
+  /* ─── Rules ─── */
+  --border-primary: oklch(0.2 0.012 60 / 0.1);
+  --border-secondary: oklch(0.2 0.012 60 / 0.16);
+  --border-tertiary: oklch(0.2 0.012 60 / 0.28);
+
+  /* ─── Accent — deep forest green, used sparingly ─── */
+  --accent: oklch(0.47 0.1 158);
+  --accent-hover: oklch(0.4 0.1 158);
+  --accent-strong: oklch(0.4 0.1 158);
+  --accent-soft: oklch(0.72 0.11 158);
+  --accent-bg: oklch(0.47 0.1 158 / 0.08);
+  --accent-border: oklch(0.47 0.1 158 / 0.35);
+
+  /* Legacy aliases (kept so older modules still resolve). */
+  --glass-bg: var(--surface);
+  --glass-bg-strong: var(--surface);
 
   /* ─── Status colors ─── */
-  --color-success: #4cb782;
-  --color-warning: #f2c94c;
-  --color-danger: #eb5757;
+  --color-success: oklch(0.55 0.13 152);
+  --color-warning: oklch(0.62 0.13 70);
+  --color-danger: oklch(0.55 0.18 27);
 
   /* ─── Typography ─── */
-  --font-sans: "Inter Variable", "Inter", -apple-system, BlinkMacSystemFont,
-    "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Berkeley Mono", "JetBrains Mono", "SF Mono", Menlo, monospace;
+  --font-serif: var(--font-instrument-serif), "Iowan Old Style", "Times New Roman", serif;
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), "SF Mono", Menlo, monospace;
 
   /* Body sizes */
   --text-micro: 11px;
@@ -50,14 +73,14 @@
   --text-xl: 19px;
   --text-2xl: 22px;
 
-  /* Display sizes — fluid using clamp() for Apple.ca-grade responsiveness */
+  /* Display sizes — fluid using clamp() */
   --text-h3: clamp(20px, 1.2vw + 16px, 24px);
   --text-h2: clamp(28px, 2.2vw + 16px, 40px);
   --text-h1: clamp(40px, 4vw + 16px, 64px);
   --text-h0: clamp(48px, 6vw + 24px, 96px);
-  --text-display: clamp(64px, 8vw + 32px, 128px); /* Hero name */
+  --text-display: clamp(48px, 14vw, 180px); /* Hero name — reference goes BIG */
 
-  /* Tracking — Apple uses very tight tracking on display text */
+  /* Tracking — Geist looks great with slightly tighter display tracking */
   --tracking-display: -0.045em;
   --tracking-tight: -0.025em;
   --tracking-snug: -0.015em;
@@ -66,8 +89,8 @@
   --tracking-wider: 0.08em;
   --tracking-widest: 0.16em;
 
-  --leading-tight: 1.04;
-  --leading-snug: 1.15;
+  --leading-tight: 0.95;
+  --leading-snug: 1.1;
   --leading-normal: 1.5;
   --leading-relaxed: 1.65;
 
@@ -93,7 +116,7 @@
   --space-32: 128px;
   --space-40: 160px;
 
-  /* ─── Radius — Apple uses pill buttons + soft rounded media ─── */
+  /* ─── Radius ─── */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
@@ -102,25 +125,26 @@
   --radius-full: 999px;
 
   /* ─── Shadows ─── */
-  --shadow-low: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-large: 0 24px 48px -8px rgba(0, 0, 0, 0.6);
-  --shadow-glow-purple: 0 0 80px rgba(94, 106, 210, 0.3);
+  --shadow-low: 0 1px 2px oklch(0.2 0.01 60 / 0.06);
+  --shadow-medium: 0 4px 12px oklch(0.2 0.01 60 / 0.08);
+  --shadow-large: 0 24px 48px -12px oklch(0.2 0.01 60 / 0.18);
 
-  /* ─── Motion — Apple's signature easing curves ─── */
+  /* ─── Motion ─── */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-apple: cubic-bezier(0.32, 0.72, 0, 1);   /* macOS Big Sur+ */
+  --ease-apple: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-spring: cubic-bezier(0.5, 1.25, 0.75, 1.25);
   --duration-fast: 150ms;
   --duration-base: 250ms;
   --duration-slow: 400ms;
 
   /* ─── Layout ─── */
-  --container-max: 1120px;
+  /* Wide, near edge-to-edge layout; gutters scale with the viewport. */
+  --container-max: 1680px;
+  --gutter: clamp(20px, 4.5vw, 88px);
   --container-narrow: 720px;
   --container-wide: 1320px;
-  --header-height: 56px;
+  --header-height: 72px;
 }
 
 *,
@@ -139,20 +163,21 @@ body {
   line-height: var(--leading-normal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Apple-grade type rendering — Inter alts that approximate SF Pro */
   text-rendering: optimizeLegibility;
-  font-feature-settings: "cv11", "ss01", "ss03", "cv02";
-  font-variation-settings: "opsz" 32;
-  font-optical-sizing: auto;
   -webkit-tap-highlight-color: transparent;
 }
 
 html {
   scroll-behavior: smooth;
-  /* Solid baseline so the AnimatedBackground at z=0 has something to paint on
-     while keeping body itself bg-free (body bg would cover fixed z:0 layers
-     in some browsers). */
   background-color: var(--bg-primary);
+  /* Keeps width stable when the lightbox locks scroll on scrollbar-ful systems. */
+  scrollbar-gutter: stable;
+}
+
+/* 3D transforms can project past the viewport mid-animation; `clip`
+   (unlike `hidden`) stops sideways scroll without breaking position: sticky. */
+body {
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -162,12 +187,11 @@ html {
 }
 
 ::selection {
-  background: var(--accent-bg);
+  background: oklch(0.47 0.1 158 / 0.2);
   color: var(--text-primary);
 }
 
-/* Custom cursor — when active, hide the system pointer site-wide.
-   Toggled by Cursor.tsx, which adds .cursor-active to the html element. */
+/* Custom cursor */
 .cursor-active,
 .cursor-active * {
   cursor: none !important;
@@ -177,25 +201,21 @@ html {
   cursor: text !important;
 }
 
-/* ─── Page-wide ambient gradient ─────────────────────────────────────────
-   Layered radial gradients painted directly on the html element. Stretches
-   the full document height so quiet color seeps through Projects /
-   Experience / Skills / Education / Contact, behind the hero's WebGL canvas.
-
-   Each radial covers roughly one section: hero-zone violet, projects rose,
-   experience cyan, contact purple — gives gentle scroll-driven color
-   variation without an animated layer. */
-html {
-  background-image:
-    radial-gradient(ellipse 95% 35% at 20% 8%, rgba(94, 106, 210, 0.30), transparent 62%),
-    radial-gradient(ellipse 85% 30% at 80% 32%, rgba(244, 63, 94, 0.18), transparent 62%),
-    radial-gradient(ellipse 90% 32% at 22% 60%, rgba(56, 189, 248, 0.15), transparent 62%),
-    radial-gradient(ellipse 85% 35% at 78% 88%, rgba(139, 92, 246, 0.22), transparent 62%);
+/* ─── Paper grain: a barely-there texture so the page feels printed,
+   not flat-digital. ─── */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ─── Display text helper — Apple's optical scaling for huge type ─── */
+/* ─── Display text helper ─── */
 .display {
-  font-variation-settings: "opsz" 96;
   letter-spacing: var(--tracking-display);
 }
 
@@ -208,4 +228,8 @@ html {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+section[id] {
+  scroll-margin-top: var(--header-height);
 }

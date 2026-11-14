@@ -1,5 +1,5 @@
 /**
- * Button — Linear-spec implementation
+ * Button - Linear-spec implementation
  * Skills applied: ui-ux-pro-max (token-driven), micro-interactions (active scale, focus ring)
  *
  * Polymorphic: renders <button>, <a>, or <Link> based on href.

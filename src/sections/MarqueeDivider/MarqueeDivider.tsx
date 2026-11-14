@@ -1,23 +1,21 @@
 /**
- * MarqueeDivider — animated keyword ticker between sections.
+ * MarqueeDivider - animated keyword ticker between sections.
  * Uses the global Marquee component with mono-styled chips.
  */
 import { Marquee } from "@/components/Marquee/Marquee";
 import styles from "./MarqueeDivider.module.css";
 
 const KEYWORDS = [
-  "Product Strategy",
-  "AI / LLMs",
-  "PRD Authoring",
-  "Jobs-to-Be-Done",
-  "Agile Scrum",
-  "User Research",
+  "Next.js",
   "React Native",
-  "Next.js · NestJS",
-  "Prompt Engineering",
-  "Roadmapping",
-  "GTM",
-  "User Journey Mapping",
+  "AI agent workflows",
+  "Claude API",
+  "PostgreSQL",
+  "Product strategy",
+  "iOS & Android",
+  "Internal tools",
+  "Power BI",
+  "Jobs-to-Be-Done",
 ];
 
 export function MarqueeDivider() {

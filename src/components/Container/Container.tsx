@@ -1,5 +1,5 @@
 /**
- * Container — max-width wrapper.
+ * Container - max-width wrapper.
  * Default 1024px; narrow=720px (good for body prose).
  * Skills applied: ui-ux-pro-max (consistent layout grid)
  */

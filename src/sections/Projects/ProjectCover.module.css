@@ -1,0 +1,175 @@
+.cover {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 115%, color-mix(in oklch, var(--from) 22%, transparent), transparent 70%),
+    var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  perspective: 900px;
+  isolation: isolate;
+}
+
+.img {
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* ─── Single screenshot: floating window ─── */
+.window {
+  position: absolute;
+  inset: 12% 8% -6% 8%;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border-secondary);
+  box-shadow: 0 2px 4px oklch(0.2 0.01 60 / 0.06), 0 30px 60px -24px oklch(0.2 0.01 60 / 0.35);
+  transform: rotateX(14deg) translateY(4%);
+  transform-origin: 50% 100%;
+  transition: transform 0.7s var(--ease-out);
+}
+
+article:hover .window,
+article:focus-within .window {
+  transform: rotateX(0deg) translateY(-2%);
+}
+
+.chrome {
+  display: flex;
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.chrome span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-secondary);
+}
+
+.windowBody {
+  position: relative;
+  height: 100%;
+}
+
+/* ─── Multiple screenshots: 3D fan ─── */
+.fanCover {
+  aspect-ratio: auto;
+  min-height: 340px;
+  height: 100%;
+}
+
+.fan {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform-style: preserve-3d;
+}
+
+.fanItem {
+  /* Centered index: -1.5 … 1.5 for four cards. */
+  --offset: calc(var(--i) - (var(--n) - 1) / 2);
+  position: absolute;
+  width: 64%;
+  aspect-ratio: 2000 / 1089;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-tertiary);
+  background: var(--surface);
+  box-shadow: 0 2px 4px oklch(0.2 0.01 60 / 0.06), 0 28px 50px -22px oklch(0.2 0.01 60 / 0.4);
+  transform: rotateY(-22deg) rotateX(10deg)
+    translate3d(calc(var(--offset) * 9%), calc(var(--offset) * 9%), calc(var(--offset) * -70px));
+  transition: transform 0.9s var(--ease-out);
+}
+
+article:hover .fanItem,
+article:focus-within .fanItem {
+  transform: rotateY(-14deg) rotateX(6deg)
+    translate3d(calc(var(--offset) * 17%), calc(var(--offset) * 15%), calc(var(--offset) * -40px));
+}
+
+/* ─── Phone fan ─── */
+.phoneItem {
+  --offset: calc(var(--i) - (var(--n) - 1) / 2);
+  position: absolute;
+  width: 21%;
+  aspect-ratio: 922 / 2000;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 4px solid var(--ink);
+  background: var(--ink);
+  box-shadow: 0 28px 50px -22px oklch(0.2 0.01 60 / 0.5);
+  transform: translate3d(calc(var(--offset) * 55%), calc(abs(var(--offset)) * 4%), calc(abs(var(--offset)) * -60px))
+    rotateY(calc(var(--offset) * -10deg)) rotateZ(calc(var(--offset) * 3deg));
+  transition: transform 0.9s var(--ease-out);
+}
+
+article:hover .phoneItem,
+article:focus-within .phoneItem {
+  transform: translate3d(calc(var(--offset) * 108%), calc(abs(var(--offset)) * 6%), calc(abs(var(--offset)) * -30px))
+    rotateY(calc(var(--offset) * -6deg)) rotateZ(calc(var(--offset) * 1.5deg));
+}
+
+/* ─── Typographic flow cover (no screenshots) ─── */
+.flowCover {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(20px, 3vw, 36px);
+  background:
+    radial-gradient(ellipse 80% 70% at 100% 0%, color-mix(in oklch, var(--from) 16%, transparent), transparent 70%),
+    var(--bg-secondary);
+}
+
+.flowTitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(30px, 2.4vw + 12px, 48px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.step {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  font-size: var(--text-small);
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 14px -10px oklch(0.2 0.01 60 / 0.4);
+  transition: transform 0.6s var(--ease-out), border-color 0.6s var(--ease-out);
+  transition-delay: calc(var(--i) * 60ms);
+}
+
+.step:not(:last-child)::after {
+  content: "→";
+  margin-left: 14px;
+  margin-right: -6px;
+  color: var(--text-quaternary);
+}
+
+.step:last-child {
+  color: var(--on-ink);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+article:hover .step {
+  transform: translateY(-4px);
+}

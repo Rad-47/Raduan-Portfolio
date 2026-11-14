@@ -1,0 +1,46 @@
+/**
+ * ClosingCTA — reference-style "Play With Me / Hire Me" closer.
+ * Two big pill buttons, side by side.
+ * RECOVERED: original ClosingCTA.module.css was lost; markup only.
+ */
+import { Container } from "@/components/Container/Container";
+import { Reveal } from "@/components/Reveal/Reveal";
+import { Magnetic } from "@/components/Magnetic/Magnetic";
+import styles from "./ClosingCTA.module.css";
+
+export function ClosingCTA() {
+  return (
+    <section
+      id="contact"
+      className={styles.section}
+      aria-label="Get in touch"
+    >
+      <Container>
+        <Reveal>
+          <div className={styles.row}>
+            <Magnetic strength={14}>
+              <a
+                href="https://github.com/Rad-47"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.btn} ${styles.play}`}
+              >
+                <span className={styles.btnLabel}>Play With Me</span>
+                <span className={styles.btnArrow} aria-hidden="true">→</span>
+              </a>
+            </Magnetic>
+            <Magnetic strength={14}>
+              <a
+                href="mailto:raduanridu2669@gmail.com"
+                className={`${styles.btn} ${styles.hire}`}
+              >
+                <span className={styles.btnLabel}>Hire Me</span>
+                <span className={styles.btnArrow} aria-hidden="true">→</span>
+              </a>
+            </Magnetic>
+          </div>
+        </Reveal>
+      </Container>
+    </section>
+  );
+}

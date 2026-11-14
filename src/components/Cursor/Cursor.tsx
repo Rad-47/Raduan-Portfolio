@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Cursor — custom cursor for fine-pointer devices.
+ * Cursor - custom cursor for fine-pointer devices.
  *
  * Two layers:
  *   1. A precise dot that sits exactly on the pointer

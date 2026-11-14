@@ -1,5 +1,5 @@
 /**
- * Education + Certs — pulled from the original archive.
+ * Education + Certs - pulled from the original archive.
  */
 
 export type Degree = {
@@ -10,27 +10,27 @@ export type Degree = {
 
 export const degrees: Degree[] = [
   {
-    degree: "MBA — Technology, Innovation & Entrepreneurship",
-    school: "International Business University · Toronto, ON",
+    degree: "MBA, Technology and Innovation",
+    school: "International Business University · Toronto, ON · GPA 3.854",
     year: 2025,
   },
   {
-    degree: "B.Eng — Mechanical Engineering",
-    school: "Ahsanullah University of Science & Technology · Dhaka",
+    degree: "Bachelor of Engineering, Mechanical Engineering",
+    school: "Ahsanullah University of Science and Technology · Dhaka",
     year: 2021,
   },
 ];
 
 export const certifications: string[] = [
-  "Google Project Management (PMP)",
   "IBM Generative AI",
-  "Six Sigma Level 1",
+  "Google Project Management",
   "Google Business Analysis",
+  "Six Sigma Level 1",
 ];
 
 export const heroStats = [
+  { value: 10, suffix: "", label: "Languages per AI-built course" },
+  { value: 15, suffix: " yr", label: "Legacy system replaced" },
   { value: 137, suffix: "", label: "Page PRD authored" },
-  { value: 15, suffix: "+", label: "Feature modules defined" },
-  { value: 25, suffix: "%", label: "Cycle time reduction" },
-  { value: 5, suffix: "×", label: "Apps shipped / in dev" },
+  { value: 71, suffix: "", label: "Research citations" },
 ];

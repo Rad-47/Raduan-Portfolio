@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * CountUp — easing-based number counter that fires when in view.
+ * CountUp - easing-based number counter that fires when in view.
  * Skills applied: micro-interactions (subtle delight),
  *                 performance-ux (uses IntersectionObserver, respects reduced-motion)
  */

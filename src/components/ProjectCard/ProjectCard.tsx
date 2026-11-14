@@ -1,5 +1,5 @@
 /**
- * ProjectCard — horizontal card per brief spec.
+ * ProjectCard - horizontal card per brief spec.
  * 64px gradient avatar | title + role pill + description | arrow
  * Skills applied: micro-interactions (hover state, arrow slide),
  *                 ui-ux-pro-max (token-driven spacing, type)

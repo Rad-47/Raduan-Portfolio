@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Reveal — minimal scroll-reveal wrapper.
+ * Reveal - minimal scroll-reveal wrapper.
  * Brief: opacity 0→1, y 12→0, 0.6s, stagger children 0.08s.
  * No bouncy springs.
  *

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * SpotlightCard — wrapper that adds a cursor-follow radial highlight,
+ * SpotlightCard - wrapper that adds a cursor-follow radial highlight,
  * a subtle 3D tilt toward the cursor, and a soft lift on hover.
  *
  * - Spotlight: tracked via --mx/--my CSS vars
