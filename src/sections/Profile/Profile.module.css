@@ -1,6 +1,6 @@
 .section {
   position: relative;
-  padding: var(--space-32) 0 var(--space-16);
+  padding: var(--section-gap) 0 0;
 }
 
 .layout {

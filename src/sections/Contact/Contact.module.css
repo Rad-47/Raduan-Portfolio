@@ -1,6 +1,6 @@
 .section {
   position: relative;
-  padding: var(--space-24) 0 var(--space-32);
+  padding: var(--section-gap) 0;
 }
 
 .stage {

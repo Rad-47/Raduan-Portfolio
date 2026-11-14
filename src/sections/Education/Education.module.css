@@ -1,7 +1,4 @@
-.section { padding: var(--space-20) 0; }
-@media (min-width: 768px) {
-  .section { padding: var(--space-32) 0; }
-}
+.section { padding: var(--section-gap) 0 0; }
 
 .head {
   margin-bottom: var(--space-16);
