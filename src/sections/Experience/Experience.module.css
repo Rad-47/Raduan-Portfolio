@@ -1,6 +1,6 @@
 .section {
   position: relative;
-  padding: var(--space-32) 0 var(--space-24);
+  padding: var(--section-gap) 0 0;
 }
 
 /* ─── Timeline geometry ───

@@ -142,6 +142,9 @@
   /* Wide, near edge-to-edge layout; gutters scale with the viewport. */
   --container-max: 1680px;
   --gutter: clamp(20px, 4.5vw, 88px);
+  /* Vertical rhythm: the single gap between consecutive sections. Sections
+     only pad their top, so gaps never stack (top + bottom). */
+  --section-gap: clamp(56px, 6vw, 96px);
   --container-narrow: 720px;
   --container-wide: 1320px;
   --header-height: 72px;
