@@ -1,13 +1,14 @@
 /**
- * Homepage — full content with Apple.ca polish + animated background.
- * Hero · Marquee · Projects · Marquee · Experience · Skills · Education · Contact
+ * Homepage - 3D work-showcase hero · keyword band · developer profile · experience timeline · project bento
+ * · skills sphere · education · contact.
  */
 import { Nav } from "@/components/Nav/Nav";
 import { Footer } from "@/components/Footer/Footer";
 import { Hero } from "@/sections/Hero/Hero";
 import { MarqueeDivider } from "@/sections/MarqueeDivider/MarqueeDivider";
-import { Projects } from "@/sections/Projects/Projects";
+import { Profile } from "@/sections/Profile/Profile";
 import { Experience } from "@/sections/Experience/Experience";
+import { Projects } from "@/sections/Projects/Projects";
 import { Skills } from "@/sections/Skills/Skills";
 import { Education } from "@/sections/Education/Education";
 import { Contact } from "@/sections/Contact/Contact";
@@ -19,8 +20,9 @@ export default function Home() {
       <main>
         <Hero />
         <MarqueeDivider />
-        <Projects />
+        <Profile />
         <Experience />
+        <Projects />
         <Skills />
         <Education />
         <Contact />

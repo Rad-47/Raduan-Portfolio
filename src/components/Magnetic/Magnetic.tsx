@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Magnetic — wraps any interactive element with a subtle "magnetic" hover.
+ * Magnetic - wraps any interactive element with a subtle "magnetic" hover.
  * The child translates toward the cursor when the cursor is near, easing
  * back to center when the cursor leaves. Pure CSS transforms, no layout shift.
  */
@@ -18,6 +18,9 @@ type Props = {
   className?: string;
 };
 
+/** Stop animating once within this many px of the target. */
+const SETTLE_PX = 0.05;
+
 export function Magnetic({
   children,
   strength = 10,
@@ -25,64 +28,83 @@ export function Magnetic({
   as = "span",
   className,
 }: Props) {
-  const ref = useRef<HTMLSpanElement | HTMLDivElement>(null);
+  const outerRef = useRef<HTMLSpanElement | HTMLDivElement>(null);
+  const innerRef = useRef<HTMLSpanElement | HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const outer = outerRef.current;
+    const inner = innerRef.current;
+    if (!outer || !inner) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     let raf = 0;
+    let running = false;
     const target = { x: 0, y: 0 };
     const current = { x: 0, y: 0 };
-
-    const onMove = (e: Event) => {
-      const pe = e as PointerEvent;
-      const rect = el.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = pe.clientX - cx;
-      const dy = pe.clientY - cy;
-      // Normalize over the bounding-box half-diagonal so the pull
-      // saturates near the edge, not at infinity.
-      const half = Math.hypot(rect.width, rect.height) / 2;
-      const distance = Math.min(Math.hypot(dx, dy) / half, 1);
-      target.x = (dx / half) * strength * (1 - distance * 0.4);
-      target.y = (dy / half) * strength * (1 - distance * 0.4);
-    };
-    const onLeave = () => {
-      target.x = 0;
-      target.y = 0;
-    };
 
     const tick = () => {
       current.x += (target.x - current.x) * ease;
       current.y += (target.y - current.y) * ease;
-      el.style.transform = `translate3d(${current.x.toFixed(2)}px, ${current.y.toFixed(2)}px, 0)`;
+      inner.style.transform = `translate3d(${current.x.toFixed(2)}px, ${current.y.toFixed(2)}px, 0)`;
+      const settled =
+        Math.abs(target.x - current.x) < SETTLE_PX &&
+        Math.abs(target.y - current.y) < SETTLE_PX;
+      if (settled) {
+        running = false;
+        return;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    const wake = () => {
+      if (running) return;
+      running = true;
       raf = requestAnimationFrame(tick);
     };
 
-    el.addEventListener("pointermove", onMove);
-    el.addEventListener("pointerleave", onLeave);
-    raf = requestAnimationFrame(tick);
+    // Measured on the static outer box, so the pull never feeds back into
+    // its own position (which made buttons vibrate near the cursor).
+    const onMove = (e: Event) => {
+      const pe = e as PointerEvent;
+      const rect = outer.getBoundingClientRect();
+      const dx = pe.clientX - (rect.left + rect.width / 2);
+      const dy = pe.clientY - (rect.top + rect.height / 2);
+      const half = Math.hypot(rect.width, rect.height) / 2;
+      const distance = Math.min(Math.hypot(dx, dy) / half, 1);
+      target.x = (dx / half) * strength * (1 - distance * 0.4);
+      target.y = (dy / half) * strength * (1 - distance * 0.4);
+      wake();
+    };
+    const onLeave = () => {
+      target.x = 0;
+      target.y = 0;
+      wake();
+    };
+
+    outer.addEventListener("pointermove", onMove);
+    outer.addEventListener("pointerleave", onLeave);
 
     return () => {
       cancelAnimationFrame(raf);
-      el.removeEventListener("pointermove", onMove);
-      el.removeEventListener("pointerleave", onLeave);
-      el.style.transform = "";
+      outer.removeEventListener("pointermove", onMove);
+      outer.removeEventListener("pointerleave", onLeave);
+      inner.style.transform = "";
     };
   }, [strength, ease]);
 
   const Tag = as;
   return (
     <Tag
-      ref={ref as React.Ref<HTMLSpanElement & HTMLDivElement>}
+      ref={outerRef as React.Ref<HTMLSpanElement & HTMLDivElement>}
       className={className}
-      style={{ display: "inline-block", willChange: "transform" }}
+      style={{ display: "inline-block" }}
     >
-      {children}
+      <Tag
+        ref={innerRef as React.Ref<HTMLSpanElement & HTMLDivElement>}
+        style={{ display: "inline-block", willChange: "transform" }}
+      >
+        {children}
+      </Tag>
     </Tag>
   );
 }

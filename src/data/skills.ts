@@ -1,6 +1,7 @@
 /**
- * Skills — grouped pill blocks.
- * Pulled verbatim from the original archive.
+ * Skills - grouped lists. Engineering, AI and tooling groups follow the
+ * resume's Technical Skills; product and methods groups follow the
+ * product roles.
  */
 
 export type SkillGroup = {
@@ -10,88 +11,56 @@ export type SkillGroup = {
 
 export const skillGroups: SkillGroup[] = [
   {
-    label: "Product Management",
+    label: "Languages & frameworks",
     pills: [
-      "Product Strategy",
-      "Product Vision",
-      "PLM",
-      "Roadmapping",
-      "MVP Definition",
-      "Feature Prioritization",
-      "GTM",
-      "OKRs / KPIs",
-      "Release Planning",
-      "Backlog Management",
-      "User Stories",
-      "PRD / FRS Authoring",
-      "Customer Discovery",
-      "JTBD",
-      "User Journey Mapping",
-      "Mobile Apps",
-    ],
-  },
-  {
-    label: "AI & Emerging Tech",
-    pills: [
-      "Generative AI",
-      "LLMs",
-      "Prompt Engineering",
-      "NLP",
-      "AI Agents",
-      "AI Workflow Automation",
-      "Claude Code",
-      "ChatGPT",
-      "Gemini",
-      "Cursor",
-      "Devin AI",
-      "GitHub Copilot",
-    ],
-  },
-  {
-    label: "Analytics & Research",
-    pills: [
-      "Requirements Elicitation",
-      "User Research",
-      "Competitive Analysis",
-      "A/B Testing",
-      "Funnel Analysis",
-      "Data-Driven Decisions",
-      "Power BI",
-      "Google Analytics",
-      "Stakeholder Management",
-      "Exec Communication",
-    ],
-  },
-  {
-    label: "Built & Shipped",
-    pills: [
-      "React Native",
-      "Next.js 14",
-      "NestJS",
+      "TypeScript",
+      "JavaScript",
+      "SQL (PostgreSQL)",
+      "React",
+      "Next.js",
       "Node.js",
-      "PostgreSQL",
-      "Redis",
-      "Stripe",
+      "NestJS",
+      "React Native",
+      "Prisma",
+      "Supabase",
       "REST APIs",
-      "Figma",
-      "Vercel",
-      "GitHub",
     ],
   },
   {
-    label: "Methodologies",
+    label: "AI & automation",
     pills: [
-      "Agile Scrum",
-      "Kanban",
-      "Sprint Planning",
-      "Lean Six Sigma",
-      "Design Thinking",
-      "Cross-Functional Leadership",
-      "Jira",
-      "Confluence",
-      "Miro",
-      "Notion",
-      "Excel",
+      "LLM APIs (Claude)",
+      "RAG",
+      "Prompt engineering",
+      "Agent workflows",
+      "Whisper",
+      "ffmpeg",
+      "Claude Code",
+      "GitHub Copilot",
+      "OpenAI Codex",
     ],
+  },
+  {
+    label: "Data & tools",
+    pills: ["Power BI", "Dashboards", "Excel", "Git", "AWS", "Docker", "Vercel", "Jira", "Figma"],
+  },
+  {
+    label: "Product",
+    pills: [
+      "Product strategy",
+      "Roadmapping",
+      "PRD / FRS authoring",
+      "MVP definition",
+      "Feature prioritization",
+      "Jobs-to-Be-Done",
+      "User research",
+      "User journey mapping",
+      "Backlog management",
+      "GTM",
+    ],
+  },
+  {
+    label: "Methods",
+    pills: ["Agile Scrum", "Kanban", "Sprint planning", "Lean Six Sigma", "Design thinking", "Root-cause analysis"],
   },
 ];

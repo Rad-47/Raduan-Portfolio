@@ -1,5 +1,5 @@
 /**
- * StatusPill — small signal element ("● Available · Toronto, ON")
+ * StatusPill - small signal element ("● Available · Toronto, ON")
  * Skills applied: micro-interactions (pulse animation on dot)
  */
 import { ReactNode } from "react";

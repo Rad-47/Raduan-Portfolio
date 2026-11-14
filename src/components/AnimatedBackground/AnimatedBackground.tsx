@@ -1,9 +1,9 @@
 /**
- * AnimatedBackground — full-page atmospheric layer.
+ * AnimatedBackground - full-page atmospheric layer.
  * Three stacked layers (z-index -3 → -1):
- *   1. Aurora — slow-morphing radial gradients
- *   2. Dot grid — fades to center, very subtle
- *   3. Grain — SVG noise overlay for premium texture
+ *   1. Aurora - slow-morphing radial gradients
+ *   2. Dot grid - fades to center, very subtle
+ *   3. Grain - SVG noise overlay for premium texture
  *
  * All pure CSS. No JS. Respects prefers-reduced-motion.
  */

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * ScrollProgress — thin top bar that fills as the page scrolls.
+ * ScrollProgress - thin top bar that fills as the page scrolls.
  * Uses framer-motion's useScroll + useSpring for buttery progress.
  */
 import { motion, useScroll, useSpring } from "framer-motion";

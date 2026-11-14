@@ -1,0 +1,72 @@
+/* Static hit area: owns the pointer + the CSS variables, never transforms. */
+.hit {
+  --px: 50%;
+  --py: 50%;
+  --rx: 0deg;
+  --ry: 0deg;
+  --s: 1;
+  --glare: 0;
+
+  height: 100%;
+}
+
+.card {
+  height: 100%;
+  position: relative;
+  transform: perspective(1100px) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s));
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Children opt into depth: <div data-depth="40"> */
+.card [data-depth] {
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.card [data-depth="20"] { transform: translateZ(calc(20px * var(--glare))); }
+.card [data-depth="40"] { transform: translateZ(calc(40px * var(--glare))); }
+.card [data-depth="60"] { transform: translateZ(calc(60px * var(--glare))); }
+
+/* Soft light that follows the pointer. */
+.glare {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--glare);
+  background: radial-gradient(
+    circle at var(--px) var(--py),
+    var(--glare-color) 0%,
+    transparent 55%
+  );
+  mix-blend-mode: overlay;
+  transition: opacity 0.35s var(--ease-out);
+}
+
+/* Pointer-tracked hairline that darkens slightly near the cursor. */
+.edge {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  border-radius: inherit;
+  pointer-events: none;
+  padding: 1px;
+  opacity: var(--glare);
+  background: radial-gradient(
+    360px circle at var(--px) var(--py),
+    oklch(0.2 0.012 60 / 0.35),
+    transparent 70%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: opacity 0.35s var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transform: none !important;
+  }
+}

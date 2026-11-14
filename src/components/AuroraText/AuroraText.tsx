@@ -1,5 +1,5 @@
 /**
- * AuroraText — color-shifting gradient text.
+ * AuroraText - color-shifting gradient text.
  * Uses background-clip:text + animated gradient position.
  * Works as inline element.
  */

@@ -1,0 +1,36 @@
+/**
+ * SeeAllWorks — reference-style "Want to see more?" CTA card.
+ * Sits between Projects and the Tech Stack.
+ * RECOVERED: original SeeAllWorks.module.css was lost; markup only.
+ */
+import { Container } from "@/components/Container/Container";
+import { Reveal } from "@/components/Reveal/Reveal";
+import styles from "./SeeAllWorks.module.css";
+
+export function SeeAllWorks() {
+  return (
+    <section className={styles.section} aria-label="See more projects">
+      <Container>
+        <Reveal>
+          <a
+            href="https://github.com/Rad-47"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.card}
+          >
+            <div className={styles.text}>
+              <h3 className={styles.title}>Want to see more?</h3>
+              <p className={styles.subtitle}>
+                Explore all of my projects and creations
+              </p>
+            </div>
+            <span className={styles.linkLabel}>
+              See All Works
+              <span className={styles.arrow} aria-hidden="true">→</span>
+            </span>
+          </a>
+        </Reveal>
+      </Container>
+    </section>
+  );
+}

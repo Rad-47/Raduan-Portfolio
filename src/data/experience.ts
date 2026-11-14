@@ -1,99 +1,110 @@
 /**
- * Experience — work history.
- * Pulled verbatim from the original archive.
+ * Experience - work history.
+ * Dates, titles and bullets follow the resume.
+ * FanLinc work sits inside the Sparcks role; FreeFuse work is shown as a
+ * project (SirClaims) in projects.ts.
  */
+import { fanLincScreens } from "./projects";
+
+export type Screenshot = { src: string; alt: string };
+
+export type Gallery = {
+  /** Header label above the strip (e.g. "Live app - FanLinc"). */
+  label: string;
+  /** "mobile" = portrait phone screens, "wide" = landscape web screens. */
+  aspect: "mobile" | "wide";
+  shots: Screenshot[];
+};
+
+export type BulletGroup = {
+  /** Sub-heading for a body of work inside the role (e.g. "FanLinc"). */
+  label: string;
+  bullets: string[];
+};
 
 export type Experience = {
   company: string;
   role: string;
   date: string;
+  location?: string;
   bullets: string[];
-  /** Optional screenshot strip rendered under the bullets. */
-  screenshots?: { src: string; alt: string }[];
-  /** Header label above the screenshot strip (e.g. "Live App", "Selected work"). */
-  screenshotsLabel?: string;
-  /** Layout of the screenshot strip. "mobile" = portrait phone mockups,
-   *  "wide" = landscape web/diagram screens. Defaults to "mobile". */
-  screenshotsAspect?: "mobile" | "wide";
+  /** Extra labelled groups of bullets, shown after the main list. */
+  groups?: BulletGroup[];
+  /** Screenshot strips rendered under the bullets. */
+  galleries?: Gallery[];
+  /** Proof links (publications, live work) shown at the end of the card. */
+  links?: { label: string; href: string }[];
 };
 
 export const experiences: Experience[] = [
   {
-    company: "Blayz Technologies — FanLinc",
-    role: "Product Analyst · Product Owner",
-    date: "JAN 2026 — PRESENT",
+    company: "Sparcks Inc.",
+    role: "Web Developer",
+    date: "May 2025 - Present",
+    location: "Toronto, ON",
     bullets: [
-      "Own the full **product lifecycle** for FanLinc — 0-to-1 consumer mobile app (iOS/Android) — driving toward **20,000 MAU** at v1.0 beta",
-      "Authored the **137-page FRS / PRD v1.0** — single source of truth covering user journey mapping, WCAG 2.1 AA, and performance SLAs (<2s load, 10K+ concurrent sessions)",
-      "Defined full roadmap v1.0–v2.0 via **Jobs-to-Be-Done**: Community Feed, Live Streaming, Prediction Challenges, Fantasy League, Gamification, Loyalty Points Engine",
-      "Designed a **5-tier points economy** with earn/spend mechanics, fraud prevention, and engagement loop logic",
-      "Cross-functional leadership — backlog refinement, sprint planning, design-to-dev handoffs (Agile Scrum · Figma · Jira · Miro)",
+      "Design, write, test and maintain web applications for the company's **enterprise learning platform** using React, Next.js and TypeScript",
+      "Rebuild legacy websites and systems on current technologies, improving performance and maintainability; **built the new company website**",
+      "Develop and release **mobile applications for iOS and Android**",
+      "Build **AI products and agent workflows** that integrate LLM APIs into the platform and internal tools",
+      "Integrate applications with backend services, third-party APIs and databases; debug and resolve issues across the stack",
+      "Turn business and user requirements into specifications and working software, and document systems for users and administrators",
+      "Build **SQL and Power BI dashboards** to track product usage and performance",
     ],
-  },
-  {
-    company: "Sparck Inc.",
-    role: "Business Analyst Intern · Product & Features",
-    date: "MAY 2025 — JUL 2025",
-    bullets: [
-      "Authored requirements for an **AI-driven analytics feature** — accelerated release by **20%**",
-      "Engagement analysis delivered a **15% lift in feature adoption**",
-    ],
-    screenshotsLabel: "Selected work",
-    screenshotsAspect: "wide",
-    screenshots: [
+    groups: [
       {
-        src: "/projects/sparck_1.png",
-        alt: "Sparck — AI-driven analytics product feature",
+        label: "FanLinc",
+        bullets: [
+          "Built **FanLinc**, a 0-to-1 consumer sports fan app, from concept to v1.0 across web, iOS and Android, plus the **FanLinc Kids** apps and **FanLinc Studio** for the content team",
+          "Authored the **137-page FRS / PRD v1.0**: user journey mapping, WCAG 2.1 AA, and performance SLAs (<2s load, 10K+ concurrent sessions), driving toward **20,000 MAU** at v1.0 beta",
+          "Defined the v1.0-v2.0 roadmap via **Jobs-to-Be-Done** and designed a **5-tier points economy** with earn/spend mechanics, fraud prevention and engagement loops",
+          "Ran backlog refinement, sprint planning and design-to-dev handoffs (Agile Scrum · Figma · Jira · Miro)",
+        ],
       },
     ],
-  },
-  {
-    company: "FreeFuse USA",
-    role: "Product Analyst (Promoted from Intern)",
-    date: "MAR 2025 — JAN 2026",
-    bullets: [
-      "Led product analysis for **SirClaims** — AI-powered NSA compliance & payment recovery platform for U.S. healthcare providers",
-      "Conducted **user research & discovery interviews** with doctors, nurses, and hospital admins — translating clinical workflows into structured requirements",
-      "Defined and documented **15+ feature modules** (IDR Case Management, Claims Center, GFE Generator, Negotiations Hub) — owning roadmap, backlog, and engineering handoff",
-      "Contributed to a **25% reduction in project cycle time** via tighter requirements elicitation and Agile Scrum delivery",
-      "Reduced estimated time-to-market by **3 months** through customer discovery and UX constraint mapping",
-    ],
-    screenshotsLabel: "Selected work",
-    screenshotsAspect: "wide",
-    screenshots: [
+    galleries: [
+      { label: "Live app - FanLinc", aspect: "mobile", shots: fanLincScreens },
       {
-        src: "/projects/freefuse_dataflow.jpg",
-        alt: "SirClaims data flow architecture — onboarding, training, analysis, feedback, tracking modules feeding the main database",
-      },
-      {
-        src: "/projects/freefuse_venue.jpg",
-        alt: "Venue Intelligence — philanthropy platform landing page connecting nonprofits, venues, vendors and sponsors",
-      },
-      {
-        src: "/projects/freefuse_healence.jpg",
-        alt: "Healence — AI-powered NSA compliance and payment recovery sign-in screen for healthcare providers",
+        label: "Company website",
+        aspect: "wide",
+        shots: [
+          {
+            src: "/projects/sparcks_site.jpg",
+            alt: "Sparcks company website, built and launched by Raduan",
+          },
+        ],
       },
     ],
   },
   {
     company: "Ripley's Aquarium of Canada",
     role: "Facility Security Liaison",
-    date: "APR 2024 — PRESENT",
+    date: "Apr 2024 - Present",
+    location: "Toronto, ON",
     bullets: [
-      "Analyzed incident & compliance data — improved response efficiency by **20%**, reduced operational downtime by **30%**",
+      "Analyzed incident, access and compliance data for recurring patterns and redesigned controls around root causes, improving **response efficiency 20%** and **cutting downtime 30%**",
     ],
   },
   {
     company: "PRAN-RFL Group",
-    role: "Assistant Manager · Operations & Export Business",
-    date: "DEC 2021 — SEP 2023",
+    role: "Assistant Manager, Operations and Export",
+    date: "Dec 2021 - Sep 2023",
+    location: "Dhaka, Bangladesh",
     bullets: [
-      "Spearheaded an **$18M–$21M global portfolio** of bicycles and components across Europe, North America, and Oceania — **95% on-time shipments** and **17% YoY revenue growth**",
-      "Directed the full lifecycle of **mountain, BMX, city, kids', and hybrid models** — integrating R&D, production, and marketing for superior product–market alignment",
-      "Cultivated and negotiated partnerships with **50+ suppliers** across Asia and Europe — accelerating lead times by **20%** and reducing procurement costs by **15%** through strategic sourcing",
-      "Revamped export logistics and trade documentation (**PO, PI, CI, sales contracts**) — shortening clearance cycles by **25%** while sustaining **100% trade compliance**",
-      "Collaborated cross-functionally with R&D and marketing to launch **new bicycle lines for European markets** — expanding retailer partnerships and brand footprint",
-      "Curtailed document processing time by **20%** by building a streamlined workflow for PO, PI, CI, sales contracts, and shipment documentation",
+      "Ran production, shipment and sales operations with a **16-person team** at a large manufacturer, lifting efficiency **20%**",
+      "Traced recurring production and delivery failures to root causes and drove fixes across departments, reaching **95% on-time delivery**",
+      "Managed an **$18M-$21M global portfolio** of bicycles and components across Europe, North America and Oceania, with **17% YoY revenue growth**",
+      "Negotiated with **50+ suppliers** across Asia and Europe, accelerating lead times 20% and reducing procurement costs 15%",
     ],
+  },
+  {
+    company: "Ahsanullah University of Science and Technology",
+    role: "Lead Researcher",
+    date: "Jul 2020 - Jul 2021",
+    location: "Dhaka, Bangladesh",
+    bullets: [
+      "Led a **5-person engineering research team** to two peer-reviewed journal papers, **cited 71 times**",
+    ],
+    links: [{ label: "View publications on Google Scholar", href: "https://scholar.google.ca/citations?user=VGhsMZgAAAAJ&hl=en&oi=ao" }],
   },
 ];

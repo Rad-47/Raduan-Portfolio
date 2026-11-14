@@ -38,3 +38,5 @@ yarn-error.log*
 
 # os
 Thumbs.db
+# macOS AppleDouble sidecars (written on exFAT/external drives)
+._*

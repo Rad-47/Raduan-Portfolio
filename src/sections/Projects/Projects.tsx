@@ -1,60 +1,115 @@
 "use client";
 
 /**
- * Projects — full-detail personal projects with screenshot strips + lightbox.
- * Replaces the minimal ProjectCard for the homepage.
+ * Projects - bento grid of 3D tilt cards.
+ * Featured project spans the full row; the rest pair up.
+ * Covers open the lightbox when the project has screenshots.
  */
-import { useState, useMemo } from "react";
-import Image from "next/image";
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/Container/Container";
-import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal/Reveal";
-import { Lightbox, LightboxImage } from "@/components/Lightbox/Lightbox";
-import { SpotlightCard } from "@/components/SpotlightCard/SpotlightCard";
-import { projects, Project, Screenshot } from "@/data/projects";
+import { SectionHeading } from "@/components/SectionHeading/SectionHeading";
+import { TiltCard } from "@/components/TiltCard/TiltCard";
+import { Lightbox, type LightboxImage } from "@/components/Lightbox/Lightbox";
+import { projects, type Project } from "@/data/projects";
+import { EASE_OUT_EXPO } from "@/lib/motion";
+import { renderBold } from "@/lib/render-bold";
+import { ProjectCover } from "./ProjectCover";
 import styles from "./Projects.module.css";
 
-/** Render bullet text with **bold** segments */
-function renderBullet(text: string) {
-  const parts = text.split(/\*\*(.+?)\*\*/g);
-  return parts.map((p, i) => (i % 2 === 0 ? p : <strong key={i}>{p}</strong>));
-}
+const FEATURED = new Set(["fanlinc", "sirclaims", "subtrack"]);
+// Featured cards span a full row, so each sits before an even number of pairs.
+const ORDER = [
+  "fanlinc",
+  "ai-lesson-generator",
+  "pm-platform",
+  "sparcks",
+  "aurelion",
+  "sirclaims",
+  "qrsnapp",
+  "untilthe-day",
+  "subtrack",
+  "webguardian",
+  "triptrue",
+];
+
+const CATEGORY_BY_SLUG: Record<string, string> = {
+  qrsnapp: "Web tool",
+  "untilthe-day": "Web app",
+  subtrack: "PWA · iOS · Android",
+  fanlinc: "Web · iOS · Android",
+  "ai-lesson-generator": "AI pipeline",
+  "pm-platform": "Internal platform",
+  sirclaims: "Healthcare AI · B2B",
+  sparcks: "Company website",
+  aurelion: "Client website",
+  webguardian: "B2B SaaS",
+  triptrue: "Mobile app",
+};
+
+const rank = (slug: string) => {
+  const i = ORDER.indexOf(slug);
+  return i === -1 ? ORDER.length : i;
+};
+const ordered = [...projects].sort((a, b) => rank(a.slug) - rank(b.slug));
+const liveCount = projects.filter((p) => p.status === "live").length;
+
+const STATUS: Record<
+  Project["status"],
+  { label: string; className: "live" | "dev" | "study" }
+> = {
+  live: { label: "Live", className: "live" },
+  "in-development": { label: "In development", className: "dev" },
+  "case-study": { label: "Product case study", className: "study" },
+};
 
 export function Projects() {
-  const [box, setBox] = useState<{ images: LightboxImage[]; index: number } | null>(
-    null
-  );
-
-  const yearRange = useMemo(() => {
-    const ys = projects.map((p) => Number(p.year)).filter(Boolean);
-    const lo = Math.min(...ys);
-    const hi = Math.max(...ys);
-    return lo === hi ? `${lo}` : `${lo}–${hi}`;
-  }, []);
+  const [box, setBox] = useState<{
+    images: LightboxImage[];
+    index: number;
+  } | null>(null);
 
   return (
-    <section id="work" className={styles.section} aria-labelledby="work-heading">
+    <section
+      id="work"
+      className={styles.section}
+      aria-labelledby="work-heading"
+    >
       <Container>
-        <Reveal>
-          <header className={styles.head}>
-            <span className={styles.eyebrow}>Selected work</span>
-            <h2 id="work-heading" className={styles.title}>
-              Personal projects shipped
-              <br />
-              <span className={styles.muted}>and in development.</span>
-            </h2>
-            <p className={styles.subhead}>
-              Five products, three live. {yearRange}.
-            </p>
-          </header>
-        </Reveal>
+        <SectionHeading
+          id="work-heading"
+          eyebrow="Selected work"
+          title={
+            <>
+              Things I&apos;ve <em>shipped</em>
+            </>
+          }
+          subtitle={`${projects.length} things I've built - apps, AI pipelines, internal platforms and websites. ${liveCount} are live or in daily use. Hover to explore, click a screen to zoom.`}
+        />
 
-        <RevealGroup as="div" className={styles.list}>
-          {projects.map((p) => (
-            <RevealItem key={p.slug}>
-              <ProjectRow project={p} onOpenLightbox={(images, index) => setBox({ images, index })} />
-            </RevealItem>
+        <ul className={styles.grid}>
+          {ordered.map((p, i) => (
+            <ProjectTile
+              key={p.slug}
+              project={p}
+              index={i}
+              featured={FEATURED.has(p.slug)}
+              onOpen={(images) => setBox({ images, index: 0 })}
+            />
           ))}
-        </RevealGroup>
+        </ul>
+
+        <a
+          href="https://github.com/Rad-47"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.more}
+        >
+          <span>More on GitHub</span>
+          <span className={styles.moreArrow} aria-hidden="true">
+            ↗
+          </span>
+        </a>
       </Container>
 
       <Lightbox
@@ -67,96 +122,95 @@ export function Projects() {
   );
 }
 
-type ProjectRowProps = {
+type ProjectTileProps = {
   project: Project;
-  onOpenLightbox: (images: LightboxImage[], index: number) => void;
+  index: number;
+  featured: boolean;
+  onOpen: (images: LightboxImage[]) => void;
 };
 
-function ProjectRow({ project, onOpenLightbox }: ProjectRowProps) {
-  const lbImages: LightboxImage[] =
-    project.screenshots?.map((s: Screenshot) => ({ src: s.src, alt: s.alt })) ?? [];
+function ProjectTile({ project, index, featured, onOpen }: ProjectTileProps) {
+  const reduced = useReducedMotion();
+  const shots = project.screenshots ?? [];
+  const statusClass = STATUS[project.status].className;
 
   return (
-    <SpotlightCard
-      className={styles.card}
-      color={`color-mix(in srgb, ${project.gradient[0]} 22%, transparent)`}
-      size={420}
+    <motion.li
+      className={featured ? styles.itemFeatured : styles.item}
+      initial={reduced ? false : { opacity: 0, y: 60, rotateX: 12 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{
+        duration: 1,
+        ease: EASE_OUT_EXPO,
+        delay: featured ? 0 : (index % 2) * 0.12,
+      }}
     >
-    <article
-      className={styles.cardInner}
-      style={
-        {
-          "--card-grad-a": project.gradient[0],
-          "--card-grad-b": project.gradient[1],
-        } as React.CSSProperties
-      }
-    >
-      <header className={styles.cardHead}>
-        <div className={styles.cardLeft}>
-          <span className={`${styles.statusDot} ${project.status === "live" ? styles.live : styles.dev}`}>
-            <span className={styles.dot} aria-hidden="true" />
-            {project.status === "live" ? "Live" : "In development"}
-          </span>
-          <h3 className={styles.cardTitle}>{project.title}</h3>
-          <p className={styles.tagline}>{project.tagline}</p>
-        </div>
-        {project.url && (
-          <a
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.visitBtn}
-            aria-label={`Visit ${project.title} live site`}
-          >
-            Visit
-            <span className={styles.visitArrow} aria-hidden="true">↗</span>
-          </a>
-        )}
-      </header>
-
-      <div className={styles.body}>
-        <p className={styles.description}>{project.description}</p>
-
-        <ul className={styles.bullets}>
-          {project.bullets.map((b, i) => (
-            <li key={i}>{renderBullet(b)}</li>
-          ))}
-        </ul>
-
-        <div className={styles.stack}>
-          {project.stack.map((tech) => (
-            <span key={tech} className={styles.chip}>
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {project.screenshots && project.screenshots.length > 0 && (
-        <div className={styles.gallery}>
-          <div className={styles.galleryLabel}>Screenshots</div>
-          <div className={styles.thumbs}>
-            {project.screenshots.map((s, i) => (
+      <TiltCard className={styles.card} maxTilt={featured ? 3 : 5}>
+        <article className={featured ? styles.innerFeatured : styles.inner}>
+          <div className={styles.coverWrap} data-depth="40">
+            {shots.length > 0 ? (
               <button
-                key={s.src}
                 type="button"
-                className={styles.thumb}
-                onClick={() => onOpenLightbox(lbImages, i)}
-                aria-label={`Open ${s.alt} in lightbox`}
+                className={styles.coverBtn}
+                onClick={() =>
+                  onOpen(shots.map((s) => ({ src: s.src, alt: s.alt })))
+                }
+                aria-label={`View ${shots.length} screenshot${shots.length > 1 ? "s" : ""} of ${project.title}`}
               >
-                <Image
-                  src={s.src}
-                  alt={s.alt}
-                  width={400}
-                  height={250}
-                  className={styles.thumbImg}
-                />
+                <ProjectCover project={project} featured={featured} />
               </button>
-            ))}
+            ) : (
+              <ProjectCover project={project} />
+            )}
           </div>
-        </div>
-      )}
-    </article>
-    </SpotlightCard>
+
+          <div className={styles.body} data-depth="20">
+            <div className={styles.metaRow}>
+              <span className={styles[statusClass]}>
+                <span className={styles.dot} aria-hidden="true" />
+                {STATUS[project.status].label}
+              </span>
+              <span className={styles.category}>
+                {CATEGORY_BY_SLUG[project.slug] ?? "Project"}
+              </span>
+              {project.year && (
+                <span className={styles.year}>{project.year}</span>
+              )}
+            </div>
+
+            <h3 className={styles.title}>{project.title}</h3>
+            <p className={styles.tagline}>{project.tagline}</p>
+
+            {featured && (
+              <ul className={styles.bullets}>
+                {project.bullets.map((b) => (
+                  <li key={b}>{renderBold(b)}</li>
+                ))}
+              </ul>
+            )}
+
+            <ul className={styles.stack} aria-label="Tech stack">
+              {project.stack.map((t) => (
+                <li key={t}>{t}</li>
+              ))}
+            </ul>
+
+            {project.url && (
+              <a
+                aria-label={`Visit ${project.title} live site (opens in new tab)`}
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.visit}
+              >
+                Visit live site
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+        </article>
+      </TiltCard>
+    </motion.li>
   );
 }

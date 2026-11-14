@@ -3,14 +3,10 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 1.5px;
   z-index: 100;
   transform-origin: 0 0;
-  background: linear-gradient(
-    90deg,
-    var(--accent) 0%,
-    color-mix(in srgb, var(--accent) 60%, #ffffff) 100%
-  );
+  background: var(--accent);
   pointer-events: none;
   will-change: transform;
 }
